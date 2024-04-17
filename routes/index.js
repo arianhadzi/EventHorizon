@@ -1,13 +1,12 @@
-import eventsRoutes from './events.js';
-import usersRoutes from './users.js';
+import authRoutes from './auth.js';
 
 const constructorMethod = (app) => {
-  app.use('/', usersRoutes) //homepage 
-  app.use('/users', usersRoutes); //user related actions
-  app.use('/events', eventsRoutes) //event related actions
+  app.use('/', authRoutes);
+
   app.use('*', (req, res) => {
-    res.sendStatus(404); 
+    res.sendStatus(404).send('Not Found'); 
   });
+  
 };
 
 export default constructorMethod;
