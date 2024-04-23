@@ -35,6 +35,33 @@ const exportedMethods = {
     }
 
     return arr;
+  },
+
+  validateUsername(username) {
+    if (!username || typeof username !== 'string' || username.trim().length < 5 || username.trim().length > 10 || /\d/.test(username.trim())) {
+        throw new Error("Username must be 5-10 characters long and cannot contain numbers.");
+    }
+    return username.toLowerCase().trim();
+  },
+
+  validatePassword(password) {
+    if (!password || typeof password !== 'string' || password.length < 8 || 
+        !/[A-Z]/.test(password) || !/\d/.test(password) || !/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+        throw new Error("Password must be at least 8 characters long, include at least one uppercase letter, one number, and one special character.");
+    }
+    return password;
+  },
+
+  validateField(field, minLength, maxLength, regex, errorMessage) {
+    if (!field || typeof field !== 'string' || field.trim().length < minLength || field.trim().length > maxLength || (regex && !regex.test(field.trim()))) {
+        throw new Error(errorMessage);
+    }
+    return field.trim();
+  },
+
+  validateEmail(email) {
+    // TODO
+    return null;
   }
 };
 

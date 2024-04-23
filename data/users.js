@@ -23,10 +23,9 @@ export const registerUser = async (
           throw new Error('There is already an existing user with that username.');
       }
       email = validateEmail(email);
-      lastName = validateName(lastName);
-      username = validateUsername(username);
-      password = validatePassword(password)
-      role = validateField(role, 4, 5, /^(admin|user)$/i, "Role must be 'admin' or 'user'.");
+      username = validation.validateUsername(username);
+      password = validation.validatePassword(password)
+      role = validation.validateField(role, 4, 5, /^(admin|user)$/i, "Role must be 'admin' or 'user'.");
     }catch(e){
       throw new Error(e)
     }
@@ -44,35 +43,28 @@ export const registerUser = async (
     return { signupCompleted: true };
   };
 
-  // Input validation functions 
-
-function validateUsername(username) {
-    if (!username || typeof username !== 'string' || username.trim().length < 5 || username.trim().length > 10 || /\d/.test(username.trim())) {
-        throw new Error("Username must be 5-10 characters long and cannot contain numbers.");
-    }
-    return username.toLowerCase().trim();
-  }
+  export const loginUser = async (username, password) => {
+    let user = undefined
+    try{
+      username = validateUsername(username);
+      password = validatePassword(password);
   
-  function validatePassword(password) {
-    if (!password || typeof password !== 'string' || password.length < 8 || 
-        !/[A-Z]/.test(password) || !/\d/.test(password) || !/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-        throw new Error("Password must be at least 8 characters long, include at least one uppercase letter, one number, and one special character.");
-    }
-    return password;
-  }
+      const userCollection = await users();
+      user = await userCollection.findOne({username: username});
+      const isMatch = await bcrypt.compare(password, user.password);
+      if(!isMatch){
+      throw new Error('Either the username or password is invalid')
+      }
+      return {
+        email: user.email,
+        username: user.username,
+        role: user.role
+      };
   
-  function validateField(field, minLength, maxLength, regex, errorMessage) {
-    if (!field || typeof field !== 'string' || field.trim().length < minLength || field.trim().length > maxLength || (regex && !regex.test(field.trim()))) {
-        throw new Error(errorMessage);
+    }catch(e){
+      throw new Error(e)
     }
-    return field.trim();
-  }
-
-  function validateEmail(email) {
-    // TODO
-    return null;
-  }
-
+}
 
 export default exportedMethods;
 
