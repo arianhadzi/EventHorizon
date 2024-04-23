@@ -8,6 +8,7 @@ export const getAllUsers = async () => {
     return userList;
 }
 
+//TODO: Add object id stuff
 export const registerUser = async (
     username,
     email,
