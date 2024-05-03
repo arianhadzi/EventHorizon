@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Register</title>
+</head>
+<body>
+    <h1>Register</h1>
+    <form id="signup-form" action="/register" method="POST">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" required placeholder="Enter your first name">
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required placeholder="Enter your last name">
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required placeholder="Choose a username (5-10 characters)">
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required placeholder="Create a password">
+
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm your password">
+
+        <button id="submitButton" type="submit" name="submitButton">Submit</button>
+    </form>
+    <p>Already have an account? <a href="/login">Log in here</a></p>
+</body>
+</html>
