@@ -32,12 +32,6 @@ function validatePassword(password) {
     return password;
 }
 
-function validateName(name) {
-    if (!name || typeof name !== 'string' || name.trim().length < 2 || name.trim().length > 25 || /\d/.test(name.trim())) {
-        throw new Error("Name must be 2-25 characters long and cannot contain numbers.");
-    }
-    return name.trim();
-}
 
 function validateField(field, minLength, maxLength, regex, errorMessage) {
     if (!field || typeof field !== 'string' || field.trim().length < minLength || field.trim().length > maxLength || (regex && !regex.test(field.trim()))) {

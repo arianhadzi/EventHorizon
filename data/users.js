@@ -1,9 +1,12 @@
 import {users} from '../config/mongoCollections.js';
 import {ObjectId} from 'mongodb'
 import validation from '../validation.js';
+import bcrypt from 'bcrypt';
 
 //TODO: Add object id stuff
 export const registerUser = async (
+    firstName,
+    lastName,
     username,
     email,
     password,
@@ -17,10 +20,13 @@ export const registerUser = async (
         console.log('existing user')
           throw new Error('There is already an existing user with that username.');
       }
-      email = validateEmail(email);
+      firstName = validation.validateName(firstName);
+      lastName = validation.validateName(lastName);
+      email = validation.validateEmail(email);
       username = validation.validateUsername(username);
-      password = validation.validatePassword(password)
-    }catch(e){
+      password = validation.validatePassword(password);
+
+    } catch(e){
       throw new Error(e)
     }
     const saltRounds = 16;
@@ -37,11 +43,13 @@ export const registerUser = async (
     return { signupCompleted: true };
   };
 
+
+  
   export const loginUser = async (username, password) => {
     let user = undefined
     try{
-      username = validateUsername(username);
-      password = validatePassword(password);
+      username = validation.validateUsername(username);
+      password = validation.validatePassword(password);
   
       const userCollection = await users();
       user = await userCollection.findOne({username: username});
@@ -58,7 +66,8 @@ export const registerUser = async (
     }catch(e){
       throw new Error(e)
     }
-}
+};
+
 
 export default exportedMethods;
 

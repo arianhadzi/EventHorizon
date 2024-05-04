@@ -62,7 +62,16 @@ const exportedMethods = {
   validateEmail(email) {
     // TODO
     return null;
+  },
+
+  validateName(name) {
+    if (!name || typeof name !== 'string' || name.trim().length < 2 || name.trim().length > 25 || /\d/.test(name.trim())) {
+      throw 'Error: firstName or lastName must be 2-25 characters long and cannot contain numbers.';
+    }  
+    return name.trim();
   }
+
+  
 };
 
 export default exportedMethods;
