@@ -119,6 +119,12 @@ router
     });
   });
 
+router.route('/create-event').get(async(req, res) => {
+  res.render('create-event', {
+
+  })
+})
+
 router.get('/', (req, res) => {
     res.render('home');
   });

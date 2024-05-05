@@ -97,6 +97,10 @@ app.get('/logout', (req, res, next) => {
   });
 });
 
+app.get('/create-event', (req, res, next) => {
+  return res.redirect('/create-event');
+})
+
 
 app.listen(3000, () => {
     console.log('Routes are running on http://localhost:3000');
