@@ -69,5 +69,3 @@ export const registerUser = async (
 };
 
 
-export default exportedMethods;
-
