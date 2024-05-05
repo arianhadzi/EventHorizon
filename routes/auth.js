@@ -2,6 +2,7 @@ import {Router} from 'express';
 const router = Router();
 import * as users from '../data/users.js';
 import * as validation from '../validation.js';
+import { ObjectId } from 'mongodb';
 
 router
   .route('/register')
@@ -120,8 +121,18 @@ router
   });
 
 router.route('/create-event').get(async(req, res) => {
-  res.render('create-event', {
+  res.render('create_event', {
+    title: req.session.eventName,
+    description: req.session.eventDescription,
+    date: req.session.event.eventDate,
+    location: req.session.eventLocation,
+    eventId : new ObjectId()
+  })
+});
 
+router.route('/verify-organizer').get(async(req, res) => {
+  res.render('/verify_organizer', {
+    organizationName: req.session.organizationName,
   })
 })
 

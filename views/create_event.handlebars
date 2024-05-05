@@ -6,17 +6,17 @@
 <body>
     <h1>Create a New Event</h1>
     <form id="create-event-form" action="/create-event" method="POST">
-        <label for="event-name">Event Name:</label>
+        <label for="eventName">Event Name:</label>
         <input type="text" id="event-name" name="event-name" required placeholder="Enter the event name">
 
-        <label for="event-description">Event Description:</label>
+        <label for="eventDescription">Event Description:</label>
         <input type="text" id="event-description" name="event-description" required placeholder="Enter the event description">
 
-        <label for="event-date">Date:</label>
+        <label for="eventDate">Date:</label>
         <input type="text" id="event-date" name="event-date" required placeholder="Select the event date">
         {{!-- TODO : date dropdown --}}
 
-        <label for="event-location">Location:</label>
+        <label for="eventLocation">Location:</label>
         <input type="text" id="event-location" name="event-location" required placeholder="Enter location">
 
         <button id="submitButton" type="submit" name="submitButton">Submit</button>
