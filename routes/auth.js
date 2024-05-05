@@ -63,7 +63,7 @@ router
         req.body.password,
       );
       
-      if (newUser === {signupComplete: true}) {
+      if (newUser.signupCompleted) {
         res.redirect('/login');
       } else {
         res.status(500).render('register', {
@@ -122,7 +122,7 @@ router
       title: 'user',
       firstName: req.session.firstName,
       lastName: req.session.user.lastName,
-      currentTime = new Date().toLocaleTimeString(),
+      currentTime: new Date().toLocaleTimeString(),
     });
   });
 

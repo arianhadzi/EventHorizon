@@ -2,6 +2,7 @@
 import express from 'express';
 const app = express();
 
+import { dbConnection, closeConnection } from './config/mongoConnections.js';
 import session from 'express-session';
 import configRoutes from './routes/index.js';
 import exphbs from 'express-handlebars';
