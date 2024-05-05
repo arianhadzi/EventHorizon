@@ -122,7 +122,7 @@ router
       title: 'user',
       firstName: req.session.firstName,
       lastName: req.session.user.lastName,
-      currentTime : new Date().toLocaleTimeString(),
+      currentTime: new Date().toLocaleTimeString(),
     });
   });
 
