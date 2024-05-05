@@ -47,7 +47,7 @@ router
 
     let username = req.body.username;
     let password = req.body.password;
-
+    // input validation
     username = validation.validateUsername(username);
     password = validation.validatePassword(password);
 
@@ -58,7 +58,6 @@ router
         req.body.username,
         req.body.password,
       );
-      
       if (newUser.signupCompleted) {
         res.redirect('/login');
       } else {
@@ -93,10 +92,8 @@ router
         error: 'Error: password should be supplied.',
       });
     }
-
     let username = req.body.username;
     let password = req.body.password;
-
     username = validation.validateUsername(username);
     password = validation.validatePassword(password);
 

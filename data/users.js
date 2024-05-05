@@ -10,7 +10,6 @@ export const registerUser = async (
     username,
     email,
     password,
-    role
   ) => {
     let userCollection = undefined;
     try{
@@ -75,7 +74,6 @@ export const registerUser = async (
       return {
         email: user.email,
         username: user.username,
-        role: user.role
       };
   
     }catch(e){
