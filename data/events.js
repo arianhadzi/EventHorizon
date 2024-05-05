@@ -11,11 +11,13 @@ create: async (eventOrganizer, eventOrganizerName, eventName, eventDate, eventDe
 
 const event = await events()
 
-if (!eventName || !eventDate || !eventDescription || !eventCategory) throw 'Please provide date, description and at least one category'
+if (!eventCategory || eventCategory.length === 0) throw 'Please provide at least one category'
+if (!eventDate) throw 'Please provide date'
 
-eventDescription = eventDescription.trim()
-
-if (eventName.length === 0 || eventDescription.length === 0 || eventCategory.length === 0) throw 'Please provide description and at least one category'
+eventName = validation.checkString(eventName, "Event Name")
+eventDescription = validation.checkString(eventDescription, "Event Description")
+eventLocation = validation.checkString(eventLocation, "Event Location")
+eventCategory = validation.checkStringArray(eventCategory, "Event Category")
 
 let newEvent = {eventOrganizer, eventOrganizerName, eventDate, eventDescription, eventLocation, eventCategory, eventComments : [], noOfComments : 0, avgRating : 0}
 
@@ -60,18 +62,11 @@ getAll : async () => {
 get : async(eventID) => 
 
 {
-
-    if (typeof eventID != 'string') throw 'ID must be a string';
-
-    let id = eventID.trim();
-    
-    if (id.length === 0) throw 'ID cannot be empty';
-    
-    if (!ObjectId.isValid(id)) throw 'Invalid ID';
+    eventID = validation.checkId(eventID)
 
     const event = await events();
   
-    const idno = ObjectId.createFromHexString(id);
+    const idno = ObjectId.createFromHexString(eventID);
     
     const ev = await event.findOne({_id: idno});
     
@@ -87,13 +82,7 @@ remove : async(eventID) =>
 
 {
 
-    if (typeof eventID != 'string') throw 'ID must be a string';
-
-    eventID = eventID.trim();
-      
-    if (eventID.length === 0) throw 'ID cannot be empty';
-      
-    if (!ObjectId.isValid(eventID)) throw 'Invalid ID';
+    eventID = validation.checkId(eventID)
       
     const event = await events();
     
