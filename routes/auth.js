@@ -3,10 +3,6 @@ const router = Router();
 import * as users from '../data/users.js';
 import * as validation from '../validation.js';
 
-router.route('/').get(async (req, res) => {
-  return res.json({ error: 'Should not come here!'});
-});
-
 router
   .route('/register')
   .get(async (req, res) => {
