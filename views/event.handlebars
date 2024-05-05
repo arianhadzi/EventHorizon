@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Event Horizon</title>
+    <link rel="stylesheet" href="/public/css/styles.css">
+
+</head>
+<body>
+    <h1>{eventName}</h1>
+    <main>
+        <p>{eventDescription}</p>
+    </main>
+
+   
+    <form id="login-form">
+        <input type="text" name="username" required/>
+        <input type="password" name="password" required/>
+        <button type="submit"> Login </button>
+    </form>
+
+    {{!-- if user is logged in, show logout button instead --}}
+    
+     <button id="logoutLink" href="/logout">Logout</button>
+
+         <script>
+        // Define the event name and description & insert into HTML doc
+        // TODO
+        var eventName = '';
+        var eventDescription = '';
+        document.getElementById('eventName').textContent = eventName;
+        document.getElementById('eventDescription').textContent = eventDescription;
+
+        //login/logout toggle
+        // TODO implement login logic
+        var userIsLoggedIn = false; 
+
+        if (userIsLoggedIn) {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('logoutLink').style.display = 'inline';
+        } else {
+            document.getElementById('login-form').style.display = 'block';
+            document.getElementById('logoutLink').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
