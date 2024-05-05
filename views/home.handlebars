@@ -4,24 +4,33 @@
     <meta charset="utf-8">
     <title>Event Horizon</title>
     <link rel="stylesheet" href="/public/css/styles.css">
-
 </head>
+
 <body>
+     <form id="login-form">
+        <input type="text" name="username" required/>
+        <input type="password" name="password" required/>
+        <button type="submit"> Login </button>
+    </form>
+    
     <h1>Event Horizon</h1>
     <main>
         <p>Welcome to Event Horizon!</p>
     </main>
 
-   
-    <form id="login-form">
-        <input type="text" name="username" required/>
-        <input type="password" name="password" required/>
-        <button type="submit"> Login </button>
-    </form>
+<script>
+    // TODO implement login logic
+        var userIsLoggedIn = false; 
 
-    // TODO: if user is logged in, show logout button instead
-    <script></script>
+        if (userIsLoggedIn) {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('logoutLink').style.display = 'inline';
+        } else {
+            document.getElementById('login-form').style.display = 'block';
+            document.getElementById('logoutLink').style.display = 'none';
+        }
      <button id="logoutLink" href="/logout">Logout</button>
+</script>
 
 </body>
 </html>
