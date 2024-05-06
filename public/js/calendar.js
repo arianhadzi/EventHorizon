@@ -29,4 +29,5 @@ function generateCalndar(){
                 weekRow += `<td>${date}</td>`;
             }
         }
+    }
 }
