@@ -131,7 +131,7 @@ return updatedEvent;
 
 },
 
-search : async(orgTerms, titleTerms, descTerms, locTerms, maxDate, minDate, maxRating = 5, minRating = 0, minComments = 0, categories) =>
+search : async(orgTerms, titleTerms, descTerms, locTerms, maxDate = new Date(), minDate = new Date("1970-01-01"), maxRating = 5, minRating = 0, minComments = 0, categories) =>
 
 {
 
@@ -155,7 +155,8 @@ descTerms = descTerms.map(word => `(?=.*\\b${word}\\b)`).join("");
 locTerms = locTerms.map(word => `(?=.*\\b${word}\\b)`).join("");
 
 let searchList = await event.find({eventOrganizerName : new RegExp(orgTerms, "i"), eventName : new RegExp(titleTerms, "i"), eventDescription : new RegExp(descTerms, "i"),
-eventLocation : new RegExp(locTerms, "i"), eventCategory : {$all : categories}, rating : {$gt: minRating, $lt, maxRating}, noOfComments : {$gt: minComments}}).toArray
+eventLocation : new RegExp(locTerms, "i"), eventCategory : {$all : categories}, rating : {$gte: minRating, $lte: maxRating}, noOfComments : {$gte: minComments}, 
+eventDate : {$gte : minDate, $lte : maxDate}}).toArray
 
 if (!searchList) throw 'Could not get all events';
     
