@@ -94,9 +94,39 @@ remove : async(eventID) =>
     
     return deletedEv.eventName + ' has been deleted';
 
+},
+
+update : async(eventID, eventName, eventDate, eventDescription, eventLocation, eventCategory) =>
+
+{
+
+const event = await events()
+
+eventID = validation.checkId(eventID)
+if (!eventCategory || eventCategory.length === 0) throw 'Please provide at least one category'
+if (!eventDate) throw 'Please provide date'
+
+eventName = validation.checkString(eventName, "Event Name")
+eventDescription = validation.checkString(eventDescription, "Event Description")
+eventLocation = validation.checkString(eventLocation, "Event Location")
+eventCategory = validation.checkStringArray(eventCategory, "Event Category")
+
+const idno = ObjectId.createFromHexString(eventID);
+
+let eventUpdate = {eventName, eventDate, eventDescription, eventLocation, eventCategory}
+
+const updatedEvent = event.findOneAndUpdate({_id: idno},
+    {$set: eventUpdate},
+    {returnDocument: 'after'})
+
+
+if (!updatedEvent) throw 'Could not update event'
+
+//updatedEvent._id = idno.toString();
+  
+return updatedEvent;
+
 }
-
-
 }
 
 export default exportedMethods;
