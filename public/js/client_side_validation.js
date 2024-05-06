@@ -1,7 +1,7 @@
 //Client-side validation
 import * as validation from '../../validation.js';
 
-document.getElementById('registrationForm').addEventListener('submit', function(event) {
+document.getElementById('signup-form').addEventListener('submit', function(event) {
     try {
         const firstName = validation.validateName(document.getElementById('firstName').value);
         const lastName = validation.validateName(document.getElementById('lastName').value);
@@ -15,5 +15,16 @@ document.getElementById('registrationForm').addEventListener('submit', function(
     } catch (error) {
         event.preventDefault(); 
         alert(error.message); 
+    }
+});
+
+document.getElementById('signin-form').addEventListener('submit', function(event) {
+    try {
+        const username = validation.validateUsername(document.getElementById('username').value);
+        const password = validation.validatePassword(document.getElementById('password').value);
+
+    } catch (error) {
+        event.preventDefault();
+        alert(error.message);
     }
 });
