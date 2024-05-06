@@ -6,27 +6,31 @@ import validation from '../validation.js';
 let exportedMethods = {
 
 create: async (eventOrganizer, eventOrganizerName, eventName, eventDate, eventDescription, eventLocation, eventCategory) => 
+
 {
-    const event = await events()
-    if (!eventCategory || eventCategory.length === 0) throw 'Please provide at least one category'
-    if (!eventDate) throw 'Please provide date'
 
-    eventName = validation.checkString(eventName, "Event Name")
-    eventDescription = validation.checkString(eventDescription, "Event Description")
-    eventLocation = validation.checkString(eventLocation, "Event Location")
-    eventCategory = validation.checkStringArray(eventCategory, "Event Category")
+const event = await events()
 
-    let newEvent = {eventOrganizer, eventOrganizerName, eventDate, eventDescription, eventLocation, eventCategory, eventComments : [], noOfComments : 0, avgRating : 0}
+if (!eventCategory || eventCategory.length === 0) throw 'Please provide at least one category'
+if (!eventDate) throw 'Please provide date'
 
-    const insertInfo = await event.insertOne(newEvent);
+eventName = validation.checkString(eventName, "Event Name")
+eventDescription = validation.checkString(eventDescription, "Event Description")
+eventLocation = validation.checkString(eventLocation, "Event Location")
+eventCategory = validation.checkStringArray(eventCategory, "Event Category")
 
-    if (!insertInfo.acknowledged || !insertInfo.insertedId) throw 'Could not add event';
+let newEvent = {eventOrganizer, eventOrganizerName, eventDate, eventDescription, eventLocation, eventCategory, eventComments : [], noOfComments : 0, avgRating : 0}
 
-    const newId = insertInfo.insertedId.toString();
+const insertInfo = await event.insertOne(newEvent);
+  
+if (!insertInfo.acknowledged || !insertInfo.insertedId) throw 'Could not add event';
 
-    const insertedEvent = await get(newId);
+const newId = insertInfo.insertedId.toString();
 
-    return insertedEvent; 
+const insertedEvent = await get(newId);
+
+return insertedEvent;
+
 },
 
 getAll : async () => {
@@ -77,7 +81,9 @@ get : async(eventID) =>
 
 },
 
-remove : async(eventID) => {
+remove : async(eventID) => 
+
+{
 
     eventID = validation.checkId(eventID)
       
@@ -96,31 +102,32 @@ remove : async(eventID) => {
 update : async(eventID, eventName, eventDate, eventDescription, eventLocation, eventCategory) =>
 
 {
-    const event = await events()
 
-    eventID = validation.checkId(eventID)
-    if (!eventCategory || eventCategory.length === 0) throw 'Please provide at least one category'
-    if (!eventDate) throw 'Please provide date'
+const event = await events()
 
-    eventName = validation.checkString(eventName, "Event Name")
-    eventDescription = validation.checkString(eventDescription, "Event Description")
-    eventLocation = validation.checkString(eventLocation, "Event Location")
-    eventCategory = validation.checkStringArray(eventCategory, "Event Category")
+eventID = validation.checkId(eventID)
+if (!eventCategory || eventCategory.length === 0) throw 'Please provide at least one category'
+if (!eventDate) throw 'Please provide date'
 
-    const idno = ObjectId.createFromHexString(eventID);
+eventName = validation.checkString(eventName, "Event Name")
+eventDescription = validation.checkString(eventDescription, "Event Description")
+eventLocation = validation.checkString(eventLocation, "Event Location")
+eventCategory = validation.checkStringArray(eventCategory, "Event Category")
 
-    let eventUpdate = {eventName, eventDate, eventDescription, eventLocation, eventCategory}
+const idno = ObjectId.createFromHexString(eventID);
 
-    const updatedEvent = event.findOneAndUpdate({_id: idno},
-        {$set: eventUpdate},
-        {returnDocument: 'after'})
+let eventUpdate = {eventName, eventDate, eventDescription, eventLocation, eventCategory}
+
+const updatedEvent = event.findOneAndUpdate({_id: idno},
+    {$set: eventUpdate},
+    {returnDocument: 'after'})
 
 
-    if (!updatedEvent) throw 'Could not update event'
+if (!updatedEvent) throw 'Could not update event'
 
-    //updatedEvent._id = idno.toString();
-    
-    return updatedEvent;
+//updatedEvent._id = idno.toString();
+  
+return updatedEvent;
 
 },
 
@@ -128,50 +135,50 @@ search : async(orgTerms, titleTerms, descTerms, locTerms, maxDate = new Date(), 
 
 {
 
-    if (!orgTerms && !titleTerms && !descTerms && !locTerms && !maxDate && !minDate && !categories) throw 'Please provide at least one field'
+if (!orgTerms && !titleTerms && !descTerms && !locTerms && !maxDate && !minDate && !categories) throw 'Please provide at least one field'
 
-    const event = await events()
+const event = await events()
 
-    orgTerms = validation.checkString(orgTerms, "Terms in Organizer Name")
-    titleTerms = validation.checkString(titleTerms, "Terms in Event Name")
-    descTerms = validation.checkString(descTerms, "Terms in Description")
-    locTerms = validation.checkString(locTerms, "Terms in Event Location")
+if (orgTerms) {orgTerms = validation.checkString(orgTerms, "Terms in Organizer Name")} else {orgTerms = [""]}
+if (titleTerms) {titleTerms = validation.checkString(titleTerms, "Terms in Event Name")} else {titleTerms = [""]}
+if (descTerms) {descTerms = validation.checkString(descTerms, "Terms in Description")} else {descTerms = [""]}
+if (locTerms) {locTerms = validation.checkString(locTerms, "Terms in Event Location")} else {locTerms = [""]}
 
-    orgTerms = orgTerms.split(" ")
-    titleTerms = titleTerms.split(" ")
-    descTerms = descTerms.split(" ")
-    locTerms = locTerms.split(" ")
+orgTerms = orgTerms.split(" ")
+titleTerms = titleTerms.split(" ")
+descTerms = descTerms.split(" ")
+locTerms = locTerms.split(" ")
 
-    orgTerms = orgTerms.map(word => `(?=.*\\b${word}\\b)`).join("");
-    titleTerms = titleTerms.map(word => `(?=.*\\b${word}\\b)`).join("");
-    descTerms = descTerms.map(word => `(?=.*\\b${word}\\b)`).join("");
-    locTerms = locTerms.map(word => `(?=.*\\b${word}\\b)`).join("");
+orgTerms = orgTerms.map(word => `(?=.*\\b${word}\\b)`).join("");
+titleTerms = titleTerms.map(word => `(?=.*\\b${word}\\b)`).join("");
+descTerms = descTerms.map(word => `(?=.*\\b${word}\\b)`).join("");
+locTerms = locTerms.map(word => `(?=.*\\b${word}\\b)`).join("");
 
-    let searchList = await event.find({eventOrganizerName : new RegExp(orgTerms, "i"), eventName : new RegExp(titleTerms, "i"), eventDescription : new RegExp(descTerms, "i"),
-    eventLocation : new RegExp(locTerms, "i"), eventCategory : {$all : categories}, rating : {$gte: minRating, $lte: maxRating}, noOfComments : {$gte: minComments}, 
-    eventDate : {$gte : minDate, $lte : maxDate}}).toArray
+let searchList = await event.find({eventOrganizerName : new RegExp(orgTerms, "i"), eventName : new RegExp(titleTerms, "i"), eventDescription : new RegExp(descTerms, "i"),
+eventLocation : new RegExp(locTerms, "i"), eventCategory : {$all : categories}, avgRating : {$gte: minRating, $lte: maxRating}, noOfComments : {$gte: minComments}, 
+eventDate : {$gte : minDate, $lte : maxDate}}).toArray
 
-    if (!searchList) throw 'Could not get all events';
-        
-        /*
-        searchList = searchList.map((element) => 
-        
-        {
-        
-        return {
-        _id : element._id.toString(),
-        eventName :  element.eventName
-        };
+if (!searchList) throw 'Could not get all events';
     
-        }
-        
-        );
-        
-        */
+    /*
+    searchList = searchList.map((element) => 
     
-        return searchList;
-
+    {
+    
+    return {
+    _id : element._id.toString(),
+    eventName :  element.eventName
+    };
+  
     }
+    
+    );
+    
+    */
+   
+    return searchList;
+
+}
 
 }
 
