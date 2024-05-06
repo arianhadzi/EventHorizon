@@ -52,7 +52,6 @@ app.use((req, res, next) => {
 
 // Login middleware
 app.get('/login', (req, res, next) => {
-  console.log('in login middleware')
   if (req.session.user) {
     return res.redirect('/user');
   }
@@ -103,6 +102,18 @@ app.get('/create-event', (req, res, next) => {
 
 app.get('/search', (req, res, next) => {
   return res.render('search');
+});
+
+app.get('/calendar', (req, res, next) => {
+  return res.render('calendar');
+});
+
+app.get('/bookmarks', (req, res, next) => {
+  return res.render('bookmarks');
+});
+
+app.get('/home', (req, res, next) => {
+  return res.render('home');
 });
 
 

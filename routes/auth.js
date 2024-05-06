@@ -110,14 +110,21 @@ router
   });
 
 router
+  .route('/logout')
+  .get(async (req, res) => {
+    res.render('login')
+})
+
+router
   .route('/user')
   .get(async (req, res) => {
-    // res.render('user', {
-    //   title: 'user',
-    //   firstName: req.session.firstName,
-    //   lastName: req.session.user.lastName,
-    //   currentTime: new Date().toLocaleTimeString(),
-    // });
+    res.render('user', {
+      // title: 'user',
+      // firstName: req.session.firstName,
+      // lastName: req.session.user.lastName,
+      // currentTime: new Date().toLocaleTimeString(),
+    });
+    
   });
 
 router.route('/create-event').get(async(req, res) => {
@@ -142,8 +149,25 @@ router.route('/search').get(async(req, res) => {
   })
 });
 
+router.route('/calendar').get(async(req, res) => {
+  res.render('calendar', {
+    
+  })
+});
+
+router.route('/bookmarks').get(async(req, res) => {
+  res.render('bookmarks', {
+    
+  })
+});
+
+router.get('/home', (req, res) => {
+  res.render('home');
+});
+
 router.get('/', (req, res) => {
     res.render('home');
   });
+  
 
 export default router;
