@@ -8,28 +8,27 @@ let exportedMethods = {
 create: async (eventOrganizer, eventOrganizerName, eventName, eventDate, eventDescription, eventLocation, eventCategory) => 
 
 {
+    const event = await events()
 
-const event = await events()
+    if (!eventCategory || eventCategory.length === 0) throw 'Please provide at least one category'
+    if (!eventDate) throw 'Please provide date'
 
-if (!eventCategory || eventCategory.length === 0) throw 'Please provide at least one category'
-if (!eventDate) throw 'Please provide date'
+    eventName = validation.checkString(eventName, "Event Name")
+    eventDescription = validation.checkString(eventDescription, "Event Description")
+    eventLocation = validation.checkString(eventLocation, "Event Location")
+    eventCategory = validation.checkStringArray(eventCategory, "Event Category")
 
-eventName = validation.checkString(eventName, "Event Name")
-eventDescription = validation.checkString(eventDescription, "Event Description")
-eventLocation = validation.checkString(eventLocation, "Event Location")
-eventCategory = validation.checkStringArray(eventCategory, "Event Category")
+    let newEvent = {eventOrganizer, eventOrganizerName, eventDate, eventDescription, eventLocation, eventCategory, eventComments : [], noOfComments : 0, avgRating : 0}
 
-let newEvent = {eventOrganizer, eventOrganizerName, eventDate, eventDescription, eventLocation, eventCategory, eventComments : [], noOfComments : 0, avgRating : 0}
+    const insertInfo = await event.insertOne(newEvent);
+    
+    if (!insertInfo.acknowledged || !insertInfo.insertedId) throw 'Could not add event';
 
-const insertInfo = await event.insertOne(newEvent);
-  
-if (!insertInfo.acknowledged || !insertInfo.insertedId) throw 'Could not add event';
+    const newId = insertInfo.insertedId.toString();
 
-const newId = insertInfo.insertedId.toString();
+    const insertedEvent = await get(newId);
 
-const insertedEvent = await get(newId);
-
-return insertedEvent;
+    return insertedEvent;
 
 },
 
@@ -98,35 +97,35 @@ remove : async(eventID) =>
 
 update : async(eventID, eventName, eventDate, eventDescription, eventLocation, eventCategory) =>
 
-{
+    {
 
-const event = await events()
+    const event = await events()
 
-eventID = validation.checkId(eventID)
-if (!eventCategory || eventCategory.length === 0) throw 'Please provide at least one category'
-if (!eventDate) throw 'Please provide date'
+    eventID = validation.checkId(eventID)
+    if (!eventCategory || eventCategory.length === 0) throw 'Please provide at least one category'
+    if (!eventDate) throw 'Please provide date'
 
-eventName = validation.checkString(eventName, "Event Name")
-eventDescription = validation.checkString(eventDescription, "Event Description")
-eventLocation = validation.checkString(eventLocation, "Event Location")
-eventCategory = validation.checkStringArray(eventCategory, "Event Category")
+    eventName = validation.checkString(eventName, "Event Name")
+    eventDescription = validation.checkString(eventDescription, "Event Description")
+    eventLocation = validation.checkString(eventLocation, "Event Location")
+    eventCategory = validation.checkStringArray(eventCategory, "Event Category")
 
-const idno = ObjectId.createFromHexString(eventID);
+    const idno = ObjectId.createFromHexString(eventID);
 
-let eventUpdate = {eventName, eventDate, eventDescription, eventLocation, eventCategory}
+    let eventUpdate = {eventName, eventDate, eventDescription, eventLocation, eventCategory}
 
-const updatedEvent = event.findOneAndUpdate({_id: idno},
-    {$set: eventUpdate},
-    {returnDocument: 'after'})
+    const updatedEvent = event.findOneAndUpdate({_id: idno},
+        {$set: eventUpdate},
+        {returnDocument: 'after'})
 
 
-if (!updatedEvent) throw 'Could not update event'
+    if (!updatedEvent) throw 'Could not update event'
 
-//updatedEvent._id = idno.toString();
-  
-return updatedEvent;
+    //updatedEvent._id = idno.toString();
+    
+    return updatedEvent;
 
-}
+    }
 }
 
 export default exportedMethods;

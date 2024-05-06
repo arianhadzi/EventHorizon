@@ -27,7 +27,6 @@ const handlebarsInstance = exphbs.create({
   partialsDir: ['views/partials/']
 });
 
-
 app.use('/public', staticDir);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
