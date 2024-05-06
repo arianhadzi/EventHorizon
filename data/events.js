@@ -40,6 +40,7 @@ getAll : async () => {
     let eventList = await event.find({}).toArray();
     
     if (!eventList) throw 'Could not get all events';
+    
     /*
     eventList = eventList.map((element) => 
     
@@ -54,7 +55,9 @@ getAll : async () => {
     
     );
     
-    */return eventList;
+    */
+   
+    return eventList;
   
   },
 
@@ -126,7 +129,56 @@ if (!updatedEvent) throw 'Could not update event'
   
 return updatedEvent;
 
+},
+
+search : async(orgTerms, titleTerms, descTerms, locTerms, maxDate, minDate, maxRating = 5, minRating = 0, minComments = 0, categories) =>
+
+{
+
+if (!orgTerms && !titleTerms && !descTerms && !locTerms && !maxDate && !minDate && !categories) throw 'Please provide at least one field'
+
+const event = await events()
+
+orgTerms = validation.checkString(orgTerms, "Terms in Organizer Name")
+titleTerms = validation.checkString(titleTerms, "Terms in Event Name")
+descTerms = validation.checkString(descTerms, "Terms in Description")
+locTerms = validation.checkString(locTerms, "Terms in Event Location")
+
+orgTerms = orgTerms.split(" ")
+titleTerms = titleTerms.split(" ")
+descTerms = descTerms.split(" ")
+locTerms = locTerms.split(" ")
+
+orgTerms = orgTerms.map(word => `(?=.*\\b${word}\\b)`).join("");
+titleTerms = titleTerms.map(word => `(?=.*\\b${word}\\b)`).join("");
+descTerms = descTerms.map(word => `(?=.*\\b${word}\\b)`).join("");
+locTerms = locTerms.map(word => `(?=.*\\b${word}\\b)`).join("");
+
+let searchList = await event.find({eventOrganizerName : new RegExp(orgTerms, "i"), eventName : new RegExp(titleTerms, "i"), eventDescription : new RegExp(descTerms, "i"),
+eventLocation : new RegExp(locTerms, "i"), eventCategory : {$all : categories}, rating : {$gt: minRating, $lt, maxRating}, noOfComments : {$gt: minComments}}).toArray
+
+if (!searchList) throw 'Could not get all events';
+    
+    /*
+    searchList = searchList.map((element) => 
+    
+    {
+    
+    return {
+    _id : element._id.toString(),
+    eventName :  element.eventName
+    };
+  
+    }
+    
+    );
+    
+    */
+   
+    return searchList;
+
 }
+
 }
 
 export default exportedMethods;
