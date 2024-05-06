@@ -79,3 +79,25 @@ input:focus, button:focus {
         width: 100%;
     }
 }
+
+
+body {
+    font-family: Arial, sans-serif;
+}
+#calendar-container {
+    width: 80%;
+    margin: 0 auto;
+}
+#calendar {
+    width: 100%;
+    border-collapse: collapse;
+}
+#calendar th, #calendar td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+#calendar th {
+    background-color: #6a1b9a;
+    color: #fff;
+}
