@@ -112,12 +112,12 @@ router
 router
   .route('/user')
   .get(async (req, res) => {
-    res.render('user', {
-      title: 'user',
-      firstName: req.session.firstName,
-      lastName: req.session.user.lastName,
-      currentTime: new Date().toLocaleTimeString(),
-    });
+    // res.render('user', {
+    //   title: 'user',
+    //   firstName: req.session.firstName,
+    //   lastName: req.session.user.lastName,
+    //   currentTime: new Date().toLocaleTimeString(),
+    // });
   });
 
 router.route('/create-event').get(async(req, res) => {
@@ -131,10 +131,16 @@ router.route('/create-event').get(async(req, res) => {
 });
 
 router.route('/verify-organizer').get(async(req, res) => {
-  res.render('/verify_organizer', {
-    organizationName: req.session.organizationName,
+  res.render('verify_organizer', {
+    // organizationName: req.session.organizationName,
   })
-})
+});
+
+router.route('/search').get(async(req, res) => {
+  res.render('search', {
+    
+  })
+});
 
 router.get('/', (req, res) => {
     res.render('home');

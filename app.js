@@ -98,8 +98,12 @@ app.get('/logout', (req, res, next) => {
 });
 
 app.get('/create-event', (req, res, next) => {
-  return res.render('/create_event');
-})
+  return res.render('create_event');
+});
+
+app.get('/search', (req, res, next) => {
+  return res.render('search');
+});
 
 
 app.listen(3000, () => {
