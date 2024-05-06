@@ -19,7 +19,7 @@ eventDescription = validation.checkString(eventDescription, "Event Description")
 eventLocation = validation.checkString(eventLocation, "Event Location")
 eventCategory = validation.checkStringArray(eventCategory, "Event Category")
 
-let newEvent = {eventOrganizer, eventOrganizerName, eventDate, eventDescription, eventLocation, eventCategory, eventComments : [], noOfComments : 0, avgRating : 0}
+let newEvent = {eventOrganizer, eventOrganizerName, eventDate, eventDescription, eventLocation, eventCategory, eventComments : [], noOfComments : 0, avgRating : 0, noOfRatings : 0}
 
 const insertInfo = await event.insertOne(newEvent);
   
@@ -131,7 +131,7 @@ return updatedEvent;
 
 },
 
-search : async(orgTerms, titleTerms, descTerms, locTerms, maxDate = new Date(), minDate = new Date("1970-01-01"), maxRating = 5, minRating = 0, minComments = 0, categories) =>
+search : async(orgTerms, titleTerms, descTerms, locTerms, maxDate = new Date(), minDate = new Date("1970-01-01"), maxRating = 5, minRating = 0, minComments = 0, minRatings = 0, categories) =>
 
 {
 
@@ -155,7 +155,7 @@ descTerms = descTerms.map(word => `(?=.*\\b${word}\\b)`).join("");
 locTerms = locTerms.map(word => `(?=.*\\b${word}\\b)`).join("");
 
 let searchList = await event.find({eventOrganizerName : new RegExp(orgTerms, "i"), eventName : new RegExp(titleTerms, "i"), eventDescription : new RegExp(descTerms, "i"),
-eventLocation : new RegExp(locTerms, "i"), eventCategory : {$all : categories}, avgRating : {$gte: minRating, $lte: maxRating}, noOfComments : {$gte: minComments}, 
+eventLocation : new RegExp(locTerms, "i"), eventCategory : {$all : categories}, avgRating : {$gte: minRating, $lte: maxRating}, noOfComments : {$gte: minComments}, noOfRatings : {$gte : minRatings}, 
 eventDate : {$gte : minDate, $lte : maxDate}}).toArray
 
 if (!searchList) throw 'Could not get all events';
