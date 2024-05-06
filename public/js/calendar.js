@@ -8,7 +8,7 @@ function generateCalendar(){
     // finding first and last day of current month
     const firstDayOfMonth = new Date(currentYear, currentMonth, 1);
     // finding 0th day of next month to get last day of current month
-    const lastDayOfMonth = new Date(curentYear, currentMonth + 1, 0 );
+    const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0 );
     const daysInMonth = lastDayOfMonth.getDate();
 
     // going for the Canvas-like calendar view
