@@ -3,6 +3,7 @@ const router = Router();
 import * as users from '../data/users.js';
 import * as validation from '../validation.js';
 import { ObjectId } from 'mongodb';
+import xss from 'xss';
 
 router
   .route('/register')
@@ -46,8 +47,8 @@ router
       });
     }
 
-    let username = req.body.username;
-    let password = req.body.password;
+    let username = xss(req.body.username);
+    let password = xss(req.body.password);
     // input validation
     username = validation.validateUsername(username);
     password = validation.validatePassword(password);
@@ -93,8 +94,8 @@ router
         error: 'Error: password should be supplied.',
       });
     }
-    let username = req.body.username;
-    let password = req.body.password;
+    let username = xss(req.body.username);
+    let password = xss(req.body.password);
     username = validation.validateUsername(username);
     password = validation.validatePassword(password);
 
@@ -119,21 +120,16 @@ router
 router
   .route('/user')
   .get(async (req, res) => {
-<<<<<<< HEAD
     res.render('user', {
-<<<<<<< HEAD
       title: 'user',
       firstName: req.session.firstName,
       lastName: req.session.user.lastName,
       currentTime: new Date().toLocaleTimeString(),
-=======
       // title: 'user',
       // firstName: req.session.firstName,
       // lastName: req.session.user.lastName,
       // currentTime: new Date().toLocaleTimeString(),
->>>>>>> 563f610d3339fc37f2f0bd84e83d371f6816e378
     });
-=======
     try{
     if(req.session.user){
       res.render('user', {
@@ -147,11 +143,9 @@ router
   catch(e){
     res.render('login');
   }
->>>>>>> de01dc30b3eccefd8b4fc8b1a4174c3b3e9088bd
     
   });
 
-<<<<<<< HEAD
 
 router
   .route('/logout')
@@ -159,7 +153,6 @@ router
     req.session.destroy();
     res.render('logout', { title: 'Logout' });
   });
-=======
 router.route('/create-event').get(async(req, res) => {
   res.render('create_event', {
     // title: req.session.eventName,
@@ -197,7 +190,6 @@ router.route('/bookmarks').get(async(req, res) => {
 router.get('/home', (req, res) => {
   res.render('home');
 });
->>>>>>> 563f610d3339fc37f2f0bd84e83d371f6816e378
 
 router.get('/', (req, res) => {
     res.render('home');
