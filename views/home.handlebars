@@ -7,18 +7,19 @@
 </head>
 
 <body>
-     <form id="login-form">
-        <input type="text" name="username" required/>
-        <input type="password" name="password" required/>
-        <button type="submit"> Login </button>
-    </form>
-    
     <h1>Event Horizon</h1>
     <main>
         <p>Welcome to Event Horizon!</p>
+        <form id="login-form">
+            <input type="text" name="username" required>
+            <input type="password" name="password" required>
+            <button type="submit"> Login </button>
+        </form>
+        <br>
+        <br>
+        <a href="/register">Don't have an account? Click here to Register!</a>
         {{> dashboard}}
     </main>
-
 <script>
     // TODO implement login logic
         var userIsLoggedIn = false; 
@@ -30,7 +31,7 @@
             document.getElementById('login-form').style.display = 'block';
             document.getElementById('logoutLink').style.display = 'none';
         }
-     <button id="logoutLink" href="/logout">Logout</button>
+     <button id="logoutLink" href="/logout"> Logout </button>
 </script>
 
 </body>

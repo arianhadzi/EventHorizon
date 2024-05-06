@@ -5,6 +5,15 @@ import * as validation from '../validation.js';
 import { ObjectId } from 'mongodb';
 import xss from 'xss';
 
+
+router.get('/', (req, res) => {
+    res.render('home');
+  });
+
+router.get('/home', (req, res) => {
+  res.render('home');
+});
+
 router
   .route('/register')
   .get(async (req, res) => {
@@ -187,13 +196,6 @@ router.route('/bookmarks').get(async(req, res) => {
   })
 });
 
-router.get('/home', (req, res) => {
-  res.render('home');
-});
-
-router.get('/', (req, res) => {
-    res.render('home');
-  });
   
 
 export default router;
