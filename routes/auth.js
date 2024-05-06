@@ -164,11 +164,11 @@ router
   });
 router.route('/create-event').get(async(req, res) => {
   res.render('create_event', {
-    // title: req.session.eventName,
-    // description: req.session.eventDescription,
-    // date: req.session.event.eventDate,
-    // location: req.session.eventLocation,
-    // eventId : new ObjectId()
+    title: req.session.eventName,
+    description: req.session.eventDescription,
+    date: req.session.event.eventDate,
+    location: req.session.eventLocation,
+    eventId : new ObjectId()
   })
 });
 
@@ -196,6 +196,19 @@ router.route('/bookmarks').get(async(req, res) => {
   })
 });
 
+router.get('/home', (req, res) => {
+  res.render('home', req.session.loggedIn);
+});
+
+router.get('/event', (req, res) => {
+  res.render('event', {
+    r
+  });
+});
+
+router.get('/', (req, res) => {
+  res.render('home', req.session.loggedIn);
+});
   
 
 export default router;
