@@ -1,18 +1,20 @@
-function generateCalndar(){
+import { calendar } from "../../config/mongoCollections";
+
+function generateCalendar(){
     const now = Date();
     const currentYear = now.getFullYear();
     const currentMonth = now.getMonth();
 
     const firstDayOfMonth = new Date(currentYear, currentMoonth, 1);
-    // finding 0th day of next month
+    // finding 0th day of next month to get last day of current month
     const lastDayOfMonth = new Date(curentYear, currentMonth + 1, 0 );
 
     // going for the Canvas-like calendar view
-    const startDayOfMonth = firstDayOfMonth.getDay();
-    const endDayOfMonth = lastDayOfMonth.getDay(); 
+    const startDayOfWeek = firstDayOfMonth.getDay();
+    const endDayOfWeek = lastDayOfMonth.getDay(); 
 
     let calendarHTML = '';
-    let date = 1 - startDayOfWeek; 
+    let date = 1 - startDayOfMonth; 
 
     document.getElementById('month-year').innerText = `${now.toLocaleString('default', { month: 'long' })} ${currentYear}`;
 
@@ -29,5 +31,9 @@ function generateCalndar(){
                 weekRow += `<td>${date}</td>`;
             }
         }
+        weekRow += '</tr>';
+        calendarHTML += weekRow;
     }
-}
+
+    document.querySelector('#calendar tbody').innerHTML = calendarHTML;
+};
