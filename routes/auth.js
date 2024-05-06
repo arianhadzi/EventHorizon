@@ -101,6 +101,7 @@ router
     try {
       let login = await users.loginUser(username, password);
         req.session.user = login;
+        req.session.loggedIn = true;
       } catch (e) {
         res.status(400).render('login', {
           title: 'Login',
@@ -118,12 +119,19 @@ router
 router
   .route('/user')
   .get(async (req, res) => {
-    res.render('user', {
-      // title: 'user',
-      // firstName: req.session.firstName,
-      // lastName: req.session.user.lastName,
-      // currentTime: new Date().toLocaleTimeString(),
-    });
+    try{
+    if(req.session.user){
+      res.render('user', {
+        // title: 'user',
+        // firstName: req.session.firstName,
+        // lastName: req.session.user.lastName,
+        // currentTime: new Date().toLocaleTimeString(),
+      });
+    }
+  }
+  catch(e){
+    res.render('login');
+  }
     
   });
 

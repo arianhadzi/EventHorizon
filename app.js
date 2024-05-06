@@ -70,6 +70,12 @@ app.get('/register', (req, res, next) => {
    return res.render('register');
 });
 
+app.use((req, res, next) => {
+  res.locals.loggedIn = req.session.loggedIn || false; // Make loggedIn status available to all views
+  next();
+});
+
+
 // User profile middleware
 app.get('/user', (req, res, next) => {
   if (!req.session.user) {
