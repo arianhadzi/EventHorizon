@@ -98,7 +98,7 @@ app.get('/logout', (req, res, next) => {
 });
 
 app.get('/create-event', (req, res, next) => {
-  return res.redirect('/create-event');
+  return res.render('/create_event');
 })
 
 

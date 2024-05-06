@@ -122,11 +122,11 @@ router
 
 router.route('/create-event').get(async(req, res) => {
   res.render('create_event', {
-    title: req.session.eventName,
-    description: req.session.eventDescription,
-    date: req.session.event.eventDate,
-    location: req.session.eventLocation,
-    eventId : new ObjectId()
+    // title: req.session.eventName,
+    // description: req.session.eventDescription,
+    // date: req.session.event.eventDate,
+    // location: req.session.eventLocation,
+    // eventId : new ObjectId()
   })
 });
 
