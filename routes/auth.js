@@ -112,7 +112,7 @@ router
 router
   .route('/logout')
   .get(async (req, res) => {
-    res.render('login')
+    res.render('logout')
 })
 
 router

@@ -116,6 +116,10 @@ app.get('/home', (req, res, next) => {
   return res.render('home');
 });
 
+app.get('/', (req, res) => {
+  const loggedIn = req.session.user ? true : false;
+  return res.render('home', {loggedIn});
+});
 
 app.listen(3000, () => {
     console.log('Routes are running on http://localhost:3000');
