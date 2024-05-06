@@ -85,3 +85,4 @@ const exportedMethods = {
   loginUser
 };
 
+export default exportedMethods;
