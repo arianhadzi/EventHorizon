@@ -8,17 +8,20 @@
 </head>
 <body>
     <header>
-        <nav>
-           <ul>
-                <li><a href="/">Home</a></li>
-           </ul>
-        </nav>
+        {{!-- {{#if loggedIn}} --}}
+            {{> navbar}} <!-- Navigation bar partial -->
+        {{!-- {{/if}} --}}
     </header>
 
     <main>
-        {{{body}}}
+        <div id="content">
+            {{{body}}}
+
+        </div>
+        
     </main>
     <script src="../../public/js/client_side_validation.js"></script>
     <footer></footer>
 </body>
 </html>
+

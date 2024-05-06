@@ -2,6 +2,7 @@
 import express from 'express';
 const app = express();
 
+import { dbConnection, closeConnection } from './config/mongoConnections.js';
 import session from 'express-session';
 import configRoutes from './routes/index.js';
 import exphbs from 'express-handlebars';
@@ -51,7 +52,6 @@ app.use((req, res, next) => {
 
 // Login middleware
 app.get('/login', (req, res, next) => {
-  console.log('in login middleware')
   if (req.session.user) {
     return res.redirect('/user');
   }
@@ -96,6 +96,30 @@ app.get('/logout', (req, res, next) => {
   });
 });
 
+app.get('/create-event', (req, res, next) => {
+  return res.render('create_event');
+});
+
+app.get('/search', (req, res, next) => {
+  return res.render('search');
+});
+
+app.get('/calendar', (req, res, next) => {
+  return res.render('calendar');
+});
+
+app.get('/bookmarks', (req, res, next) => {
+  return res.render('bookmarks');
+});
+
+app.get('/home', (req, res, next) => {
+  return res.render('home');
+});
+
+app.get('/', (req, res) => {
+  const loggedIn = req.session.user ? true : false;
+  return res.render('home', {loggedIn});
+});
 
 app.listen(3000, () => {
     console.log('Routes are running on http://localhost:3000');

@@ -9,16 +9,20 @@ export const registerUser = async (
     username,
     email,
     password,
-    role
   ) => {
     let userCollection = undefined;
     try{
       userCollection = await users();
-      const existingUser = await userCollection.findOne({ username: username });
+      // Check if a user exists with the same username or email
+      const existingUser = await userCollection.findOne({
+        $or: [{ username: username }, { email: email }]
+      });      
+      
       if (existingUser) {
         console.log('existing user')
-          throw new Error('There is already an existing user with that username.');
+        throw new Error('There is already an existing user with that username or email.');
       }
+
       firstName = validation.validateName(firstName);
       lastName = validation.validateName(lastName);
       email = validation.validateEmail(email);
@@ -26,16 +30,20 @@ export const registerUser = async (
       password = validation.validatePassword(password);
 
     } catch(e){
-      throw new Error(e)
+      throw new Error(`Error during user registeration: ${e.message}`);
     }
+
     const saltRounds = 16;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const insertResult = await userCollection.insertOne({
+        firstName: firstName,
+        lastName: lastName,
         email: email,
         username: username,
         password: hashedPassword,
         role: role
     });
+
     if (insertResult.insertedCount === 0) {
         throw new Error('User registration failed');
     }
@@ -51,15 +59,20 @@ export const registerUser = async (
       password = validation.validatePassword(password);
   
       const userCollection = await users();
+
       user = await userCollection.findOne({username: username});
+      if(!user){
+        throw new Error('User not found.');
+      }
+
       const isMatch = await bcrypt.compare(password, user.password);
       if(!isMatch){
       throw new Error('Either the username or password is invalid')
       }
+
       return {
         email: user.email,
         username: user.username,
-        role: user.role
       };
   
     }catch(e){
@@ -67,6 +80,8 @@ export const registerUser = async (
     }
 };
 
-
-export default exportedMethods;
+const exportedMethods = {
+  registerUser,
+  loginUser
+};
 

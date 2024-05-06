@@ -2,10 +2,7 @@ import {Router} from 'express';
 const router = Router();
 import * as users from '../data/users.js';
 import * as validation from '../validation.js';
-
-router.route('/').get(async (req, res) => {
-  return res.json({ error: 'Should not come here!'});
-});
+import { ObjectId } from 'mongodb';
 
 router
   .route('/register')
@@ -51,7 +48,7 @@ router
 
     let username = req.body.username;
     let password = req.body.password;
-
+    // input validation
     username = validation.validateUsername(username);
     password = validation.validatePassword(password);
 
@@ -62,8 +59,7 @@ router
         req.body.username,
         req.body.password,
       );
-      
-      if (newUser === {signupComplete: true}) {
+      if (newUser.signupCompleted) {
         res.redirect('/login');
       } else {
         res.status(500).render('register', {
@@ -97,10 +93,8 @@ router
         error: 'Error: password should be supplied.',
       });
     }
-
     let username = req.body.username;
     let password = req.body.password;
-
     username = validation.validateUsername(username);
     password = validation.validatePassword(password);
 
@@ -116,16 +110,31 @@ router
   });
 
 router
+  .route('/logout')
+  .get(async (req, res) => {
+    res.render('logout')
+})
+
+router
   .route('/user')
   .get(async (req, res) => {
     res.render('user', {
+<<<<<<< HEAD
       title: 'user',
       firstName: req.session.firstName,
       lastName: req.session.user.lastName,
       currentTime: new Date().toLocaleTimeString(),
+=======
+      // title: 'user',
+      // firstName: req.session.firstName,
+      // lastName: req.session.user.lastName,
+      // currentTime: new Date().toLocaleTimeString(),
+>>>>>>> 563f610d3339fc37f2f0bd84e83d371f6816e378
     });
+    
   });
 
+<<<<<<< HEAD
 
 router
   .route('/logout')
@@ -133,9 +142,49 @@ router
     req.session.destroy();
     res.render('logout', { title: 'Logout' });
   });
+=======
+router.route('/create-event').get(async(req, res) => {
+  res.render('create_event', {
+    // title: req.session.eventName,
+    // description: req.session.eventDescription,
+    // date: req.session.event.eventDate,
+    // location: req.session.eventLocation,
+    // eventId : new ObjectId()
+  })
+});
+
+router.route('/verify-organizer').get(async(req, res) => {
+  res.render('verify_organizer', {
+    // organizationName: req.session.organizationName,
+  })
+});
+
+router.route('/search').get(async(req, res) => {
+  res.render('search', {
+    
+  })
+});
+
+router.route('/calendar').get(async(req, res) => {
+  res.render('calendar', {
+    
+  })
+});
+
+router.route('/bookmarks').get(async(req, res) => {
+  res.render('bookmarks', {
+    
+  })
+});
+
+router.get('/home', (req, res) => {
+  res.render('home');
+});
+>>>>>>> 563f610d3339fc37f2f0bd84e83d371f6816e378
 
 router.get('/', (req, res) => {
     res.render('home');
   });
+  
 
 export default router;
