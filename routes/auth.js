@@ -195,12 +195,13 @@ router.route("/bookmarks").get(async (req, res) => {
     loggedIn: req.session.loggedIn});
 });
 
+/*
 router.get("/home", (req, res) => {
   res.render("home", {
     session : req.session,
     loggedIn: req.session.loggedIn});
 });
-
+*/
 router.get("/event", (req, res) => {
   res.render("event", {
     session : req.session,
