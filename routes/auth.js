@@ -114,9 +114,19 @@ router
     password = validatePassword(password);
 
     try {
-      let login = await users.loginUser(username, password);
-      req.session.user = login;
+      const user = await users.loginUser(username, password);
+      if (!user) {
+        throw new Error('Invalid username or password.'); 
+      }
+      console.log('Begin try block')
+      req.session.user = {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email : user.email,
+          username: user.username
+      };
       req.session.loggedIn = true;
+      res.cookie('AuthenticationState', 'authToken', { httpOnly: true, secure: false }); 
     } catch (e) {
       return res.status(400).render("login", {
         title: "Login",

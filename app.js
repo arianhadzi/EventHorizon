@@ -39,11 +39,11 @@ configRoutes(app);
 
 // 1
 app.use((req, res, next) => {
-  const isAuthenticated = req.session.user ? true : false;
-  const role = isAuthenticated ? req.session.user.role : 'Non-Authenticated User';
+  const isLoggedIn = req.session.user ? true : false;
+  const role = isLoggedIn ? req.session.user : 'Not logged in';
   console.log(`[${new Date().toUTCString()}]: ${req.method} ${req.originalUrl} (${role})`);
   if (req.originalUrl === '/') {
-      if (!isAuthenticated) {
+      if (!isLoggedIn) {
           return res.redirect('/login');
       } 
   }
