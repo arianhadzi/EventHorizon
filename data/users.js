@@ -41,7 +41,6 @@ export const registerUser = async (
         email: email,
         username: username,
         password: hashedPassword,
-        role: role
     });
 
     if (insertResult.insertedCount === 0) {
