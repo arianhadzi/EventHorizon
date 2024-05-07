@@ -37,8 +37,8 @@ if (registerForm) {
         lastName.value = lastName.value.trim();
         email.value = email.value.trim();
         username.value = username.value.trim();
-        password = password.value.trim();
-        confirmPassword = confirmPassword.value.trim();
+        password.value = password.value.trim();
+        confirmPassword.value = confirmPassword.value.trim();
 
         if (firstName.value.length < 2 || firstName.value.length > 25 || /\d/.test(firstName.value)) {
             errorMessages.push('FirstName should be 2-25 characters long or contain numbers!');
