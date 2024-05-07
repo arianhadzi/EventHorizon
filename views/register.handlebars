@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1>Register</h1>
+    <p>{{error}}</p>
     <form id="signup-form" action="/register" method="POST">
         <label for="firstName">First Name:</label>
         <input type="text" id="firstName" name="firstName" required placeholder="Enter your first name">
@@ -30,5 +31,6 @@
         <button id="submitButton" type="submit" name="submitButton">Submit</button>
     </form>
     <p>Already have an account? <a href="/login">Log in here</a></p>
+    <div id="signup-form-error" hidden></div>
 </body>
 </html>
