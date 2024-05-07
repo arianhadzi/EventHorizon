@@ -4,7 +4,7 @@ const constructorMethod = (app) => {
   app.use('/', authRoutes);
 
   app.use('*', (req, res) => {
-    res.sendStatus(404).send('Not Found'); 
+    res.status(404).send('Not Found'); 
   });
   
 };
