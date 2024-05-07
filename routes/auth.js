@@ -10,7 +10,9 @@ router.get("/", (req, res) => {
   if(!req.session.user){
     return res.redirect('/login')
   } else{
-    return res.redirect("home");
+    return res.render("home", {
+      session : req.session,
+      loggedIn: req.session.loggedIn});
   }
 });
 
@@ -18,7 +20,9 @@ router.get("/home", (req, res) => {
   if(!req.session.user){
     return res.redirect('/login')
   } else{
-    return res.render("home");
+    return res.render("home", {
+      session : req.session,
+      loggedIn: req.session.loggedIn});
   }
 });
 
@@ -128,8 +132,13 @@ router
       }
       req.session.user = user;
       req.session.loggedIn = true;
-      res.redirect('/home')
-      res.cookie('AuthenticationState', 'authToken', { httpOnly: true, secure: false }); 
+
+      res.cookie('AuthenticationState', 'authToken', {
+        httpOnly: true,
+        secure: false,
+      });
+      res.redirect('/home');
+
     } catch (e) {
       return res.status(400).render("login", {
         title: "Login",
@@ -146,9 +155,9 @@ router.route("/user").get(async (req, res) => {
   try {
     if (req.session.user) {
       return res.render("user", {
-        firstName: req.session.firstName,
-        lastName: req.session.user.lastName,
-        currentTime: new Date().toLocaleTimeString(),
+        currentTime: new Date().toLocaleTimeString(),      
+        session : req.session,
+        loggedIn: req.session.loggedIn 
       });
     }
   } catch (e) {
@@ -161,37 +170,46 @@ router.route("/logout").get(async (req, res) => {
   res.render("logout", { title: "Logout" });
 });
 router.route("/create-event").get(async (req, res) => {
-  res.render("create_event");
+  res.render("create_event", {
+    session : req.session,
+    loggedIn: req.session.loggedIn});
 });
 
 router.route("/verify-organizer").get(async (req, res) => {
   res.render("verify_organizer", {
-    // organizationName: req.session.organizationName,
-  });
+    session : req.session,
+    loggedIn: req.session.loggedIn});
 });
 
 router.route("/search").get(async (req, res) => {
-  res.render("search", {});
+  res.render("search", {
+    session : req.session,
+    loggedIn: req.session.loggedIn});
 });
 
 router.route("/calendar").get(async (req, res) => {
-  res.render("calendar", {});
+  res.render("calendar", {
+    session : req.session,
+    loggedIn: req.session.loggedIn});
 });
 
 router.route("/bookmarks").get(async (req, res) => {
-  res.render("bookmarks", {});
+  res.render("bookmarks", {
+    session : req.session,
+    loggedIn: req.session.loggedIn});
 });
 
 router.get("/home", (req, res) => {
-  res.render("home", req.session.loggedIn);
+  res.render("home", {
+    session : req.session,
+    loggedIn: req.session.loggedIn});
 });
 
 router.get("/event", (req, res) => {
-  res.render("event", {});
+  res.render("event", {
+    session : req.session,
+    loggedIn: req.session.loggedIn});
 });
 
-router.get("/", (req, res) => {
-  res.render("home", req.session.loggedIn);
-});
 
 export default router;

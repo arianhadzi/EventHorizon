@@ -77,11 +77,6 @@ app.get('/register', (req, res, next) => {
    return res.render('register');
 });
 
-app.use( (req, res, next) => {
-  res.locals.loggedIn = req.session.loggedIn || false; // Make loggedIn status available to all views
-  next();
-});
-
 app.get('/', (req, res) => {
   const loggedIn = req.session.user ? true : false;
   return res.render('home', {loggedIn});
@@ -130,6 +125,9 @@ app.get('/bookmarks', (req, res, next) => {
 });
 
 app.get('/home', (req, res, next) => {
+  if(!req.session.user){
+    return res.redirect('login')
+  }
   return res.render('home');
 });
 
