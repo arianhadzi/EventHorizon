@@ -1,7 +1,8 @@
 import {Router} from 'express';
 const router = Router();
 import * as users from '../data/users.js';
-import * as validation from '../validation.js';
+import validation from '../validation.js';
+console.log(validation);
 import { ObjectId } from 'mongodb';
 import xss from 'xss';
 

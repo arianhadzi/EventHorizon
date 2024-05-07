@@ -1,5 +1,5 @@
 //Client-side validation
-import * as validation from '../../validation.js';
+import validation from '../../validation.js';
 
 document.getElementById('signup-form').addEventListener('submit', function(event) {
     try {
