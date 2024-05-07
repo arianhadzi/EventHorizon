@@ -98,7 +98,7 @@ getAll : async () => {
 
     let updatedEvent = await event.findOneAndUpdate({_id: evID}, {$set : {noOfComments : newCommentCount, eventComments : commentList}})
     
-    if (!updatedEvent) throw 'Event couuld not be updated'
+    if (!updatedEvent) throw 'Event could not be updated'
     
     return deletedComment.comment + ' has been deleted';
   
