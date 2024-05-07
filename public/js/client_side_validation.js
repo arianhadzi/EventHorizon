@@ -6,6 +6,7 @@ document.getElementById('signup-form').addEventListener('submit', function(event
         const firstName = validation.validateName(document.getElementById('firstName').value);
         const lastName = validation.validateName(document.getElementById('lastName').value);
         const username = validation.validateUsername(document.getElementById('username').value);
+        const email = validation.validateEmail(document.getElementById('email').value);
         const password = validation.validatePassword(document.getElementById('password').value);
         const confirmPassword = document.getElementById('confirmPassword').value;
         if (password !== confirmPassword) {
