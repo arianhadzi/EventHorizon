@@ -19,7 +19,7 @@ eventDescription = validation.checkString(eventDescription, "Event Description")
 eventLocation = validation.checkString(eventLocation, "Event Location")
 eventCategory = validation.checkStringArray(eventCategory, "Event Category")
 
-let newEvent = {eventOrganizer, eventOrganizerName, eventDate, eventDescription, eventLocation, eventCategory, eventComments : [], noOfComments : 0, avgRating : 0, noOfRatings : 0}
+let newEvent = {eventOrganizer, eventOrganizerName, eventDate, eventDescription, eventLocation, eventCategory, eventComments : [], noOfComments : 0, avgRating : 0, noOfRatings : 0, verified: false}
 
 const insertInfo = await event.insertOne(newEvent);
   
