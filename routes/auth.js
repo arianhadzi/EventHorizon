@@ -152,13 +152,7 @@ router
     res.render('logout', { title: 'Logout' });
   });
 router.route('/create-event').get(async(req, res) => {
-  res.render('create_event', {
-    title: req.session.eventName,
-    description: req.session.eventDescription,
-    date: req.session.event.eventDate,
-    location: req.session.eventLocation,
-    eventId : new ObjectId()
-  })
+  res.render('create_event')
 });
 
 router.route('/verify-organizer').get(async(req, res) => {
