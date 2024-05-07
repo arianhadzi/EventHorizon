@@ -1,30 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Event Horizon</title>
-    <link rel="stylesheet" href="/public/css/styles.css">
 
-</head>
-<body>
-    <h1 id="eventName">{eventName}</h1>
-    <main>
-        <h2 id="eventTime">{eventTime}</h2>
-        <h2 id="eventLocation">{eventLocation}</h2>
-        <p  id="eventDescription">{eventDescription}</p>
-    </main>
+<h1 id="eventName">{eventName}</h1>
+<main>
+    <h2 id="eventTime">{eventTime}</h2>
+    <h2 id="eventLocation">{eventLocation}</h2>
+    <p  id="eventDescription">{eventDescription}</p>
+</main>
 
-    <script>
+<script>
         // Define the event name and description & insert into HTML doc
         // TODO
-        var eventName = req.eventName;
-        var eventDescription = req.eventDescription;
-        var eventTime = req.eventTime;
-        var eventLocation = req.eventLocation;
-        document.getElementById('eventName').textContent = eventName;
-        document.getElementById('eventDescription').textContent = eventDescription;
-        document.getElementById('eventTime').textContent = eventTime;
-        document.getElementById('eventLocation').textContent = eventLocation;
-    </script>
-</body>
-</html>
+    var eventName = req.eventName;
+    var eventDescription = req.eventDescription;
+    var eventTime = req.eventTime;
+    var eventLocation = req.eventLocation;
+    document.getElementById('eventName').textContent = eventName;
+    document.getElementById('eventDescription').textContent = eventDescription;
+    document.getElementById('eventTime').textContent = eventTime;
+    document.getElementById('eventLocation').textContent = eventLocation;
+</script>
