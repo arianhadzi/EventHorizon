@@ -20,10 +20,18 @@
         <a href="/register">Don't have an account? Click here to Register!</a>
         {{> dashboard}}
     </main>
-<script>
-    // TODO implement login logic
-        var userIsLoggedIn = false; 
 
+    {{#if loggedIn}}
+        <script>
+            var userIsLoggedIn = true;
+        </script>
+    {{else}}
+        <script>
+            var userIsLoggedIn = false;
+        </script>
+    {{/if}}
+
+<script>
         if (userIsLoggedIn) {
             document.getElementById('login-form').style.display = 'none';
             document.getElementById('logoutLink').style.display = 'inline';

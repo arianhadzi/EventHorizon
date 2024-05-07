@@ -157,7 +157,6 @@ router.route('/create-event').get(async(req, res) => {
 
 router.route('/verify-organizer').get(async(req, res) => {
   res.render('verify_organizer', {
-    // organizationName: req.session.organizationName,
   })
 });
 
@@ -180,7 +179,7 @@ router.route('/bookmarks').get(async(req, res) => {
 });
 
 router.get('/home', (req, res) => {
-  res.render('home', req.session.loggedIn);
+  res.render('home', {loggedIn: req.session.loggedIn});
 });
 
 router.get('/event', (req, res) => {
@@ -190,7 +189,7 @@ router.get('/event', (req, res) => {
 });
 
 router.get('/', (req, res) => {
-  res.render('home', req.session.loggedIn);
+  res.render('home', {loggedIn: req.session.loggedIn});
 });
   
 
