@@ -7,9 +7,12 @@
         <label for="eventDescription">Event Description:</label>
         <input type="text" id="eventDescription" name="eventDescription" required placeholder="Enter the event description">
 
-        <label for="eventDate">Date:</label>
-        <input type="datetime" id="eventDate" name="eventDate" required placeholder="Select the event date">
-        {{!-- TODO : date dropdown --}}
+    <label for="eventDate">Date:</label>
+            <div id="date-selects">
+                <select id="day" name="day"></select>
+                <select id="month" name="month"></select>
+                <select id="year" name="year"></select>
+            </div>
 
         <label for="eventLocation">Location:</label>
         <input type="text" id="eventLocation" name="eventLocation" required placeholder="Enter location">
@@ -37,5 +40,6 @@
 
         <button id="submitButton" type="submit" name="submitButton">Submit</button>
     </form>
+    <script src="/public/js/dateDropdown.js"></script>
 </body>
 </html>
