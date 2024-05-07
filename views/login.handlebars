@@ -8,7 +8,6 @@
 </head>
 <body>
     <h1>Login to enter the site</h1>
-    <p>{{error}}</p>
     <form id="signin-form" action="/login" method="POST">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username">
@@ -17,6 +16,5 @@
         <button id="submitButton" type="submit" name="submitButton">Submit</button>
     </form>
     <a href="/register">Don't have an account? Click here to Register!</a>
-    <div id="signin-form-error" hidden></div>
 </body>
 </html>
