@@ -1,6 +1,6 @@
 import {users} from '../config/mongoCollections.js';
 import {ObjectId} from 'mongodb'
-import validation from '../validation.js';
+import * as validation from '../validation.js';
 
 //TODO: Add object id stuff
 export const registerUser = async (
