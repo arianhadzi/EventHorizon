@@ -88,7 +88,8 @@ function validateEmail(email) {
   email = email.trim();
   if (email.length === 0) throw "Email should not be empty";
   email = email.toLowerCase();
-  if (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email))
+  console.log(email)
+  if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email))
     throw new Error("Invalid email");
   return email;
 }
