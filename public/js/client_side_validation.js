@@ -1,30 +1,28 @@
 //Client-side validation
 import validation from '../../validation.js';
 
-document.getElementById('signup-form').addEventListener('submit', function(event) {
-    try {
-        const firstName = validation.validateName(document.getElementById('firstName').value);
-        const lastName = validation.validateName(document.getElementById('lastName').value);
-        const username = validation.validateUsername(document.getElementById('username').value);
-        const password = validation.validatePassword(document.getElementById('password').value);
-        const confirmPassword = document.getElementById('confirmPassword').value;
-        if (password !== confirmPassword) {
-            throw new Error("Passwords do not match.");
+let registerForm = document.getElementById('signup-form');
+let loginForm = document.getElementById('signin-form');
+let firstName = document.getElementById('firstName');
+let lastName = document.getElementById('lastName');
+let email = document.getElementById('email');
+let username = document.getElementById('username');
+let password = document.getElementById('password');
+let confirmPassword = document.getElementById('confirmPassword');
+let registerError = document.getElementById('signup-error-form');
+let loginError = document.getElementById('signin-error-form');
+
+if (registerForm) {
+    registerForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        let errorMessages = [];
+        registerError.innerHTML = '';
+        registerError.hidden = true;
+
+        if (!validation.validateName(firstName)) {
+            errorMessages.push('First name needs value.');
         }
 
-    } catch (error) {
-        event.preventDefault(); 
-        alert(error.message); 
-    }
-});
+    })
+}
 
-document.getElementById('signin-form').addEventListener('submit', function(event) {
-    try {
-        const username = validation.validateUsername(document.getElementById('username').value);
-        const password = validation.validatePassword(document.getElementById('password').value);
-
-    } catch (error) {
-        event.preventDefault();
-        alert(error.message);
-    }
-});
