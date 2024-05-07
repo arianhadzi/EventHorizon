@@ -7,11 +7,19 @@ import xss from "xss";
 
 
 router.get("/", (req, res) => {
-  return res.render("home");
+  if(!req.session.user){
+    return res.redirect('/login')
+  } else{
+    return res.redirect("home");
+  }
 });
 
 router.get("/home", (req, res) => {
-  return res.render("home");
+  if(!req.session.user){
+    return res.redirect('/login')
+  } else{
+    return res.render("home");
+  }
 });
 
 router
