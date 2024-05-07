@@ -147,10 +147,6 @@ router
     }
   });
 
-router.route("/logout").get(async (req, res) => {
-  res.render("logout");
-});
-
 router.route("/user").get(async (req, res) => {
   try {
     if (req.session.user) {
