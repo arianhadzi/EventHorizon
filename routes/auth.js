@@ -126,17 +126,10 @@ router
       if (!user) {
         throw new Error('Invalid username or password.'); 
       }
-      console.log('Begin try block')
-      // req.session.user = {
-      //     // firstName: user.firstName,
-      //     // lastName: user.lastName,
-      //     // email : user.email,
-      //     // username: user.username
-      // };
-      console.log(req.session)
+      req.session.user = user;
       req.session.loggedIn = true;
+      res.redirect('/home')
       res.cookie('AuthenticationState', 'authToken', { httpOnly: true, secure: false }); 
-      console.log('Ending try block')
     } catch (e) {
       return res.status(400).render("login", {
         title: "Login",
