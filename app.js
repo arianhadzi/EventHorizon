@@ -35,6 +35,13 @@ app.use(express.urlencoded({ extended: true }));
 app.engine('handlebars', handlebarsInstance.engine);
 app.set('view engine', 'handlebars');
 
+app.use(session({
+  name: 'AuthenticationState',
+  secret: 'ssshh secret',
+  resave: false,
+  saveUninitialized: false
+}))
+
 configRoutes(app);
 
 // 1
@@ -70,7 +77,7 @@ app.get('/register', (req, res, next) => {
    return res.render('register');
 });
 
-app.use((req, res, next) => {
+app.use( (req, res, next) => {
   res.locals.loggedIn = req.session.loggedIn || false; // Make loggedIn status available to all views
   next();
 });
