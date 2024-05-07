@@ -10,6 +10,7 @@ export const registerUser = async (
     email,
     password,
   ) => {
+    console.log(username)
     let userCollection = undefined;
     try{
       userCollection = await users();
@@ -28,7 +29,6 @@ export const registerUser = async (
       email = validation.validateEmail(email);
       username = validation.validateUsername(username);
       password = validation.validatePassword(password);
-
     } catch(e){
       throw new Error(`Error during user registeration: ${e.message}`);
     }

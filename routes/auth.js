@@ -59,15 +59,19 @@ router
 
     let username = xss(req.body.username);
     let password = xss(req.body.password);
+
     // input validation
     username = validateUsername(username);
-    password = validatePassword(password);
+    // password = validatePassword(password);
+
+    req.body.password = password;
 
     try {
       let newUser = await users.registerUser(
         req.body.firstName,
         req.body.lastName,
         req.body.username,
+        req.body.email,
         req.body.password
       );
       if (newUser.signupCompleted) {
