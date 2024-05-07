@@ -1,6 +1,6 @@
 //Client-side validation
 
-import {validateName, validatePassword, validateEmail, validatePassword} from "../../validation.js";
+import {validateName, validatePassword, validateEmail} from "../../validation.js";
 
 let registerForm = document.getElementById('signup-form');
 let loginForm = document.getElementById('signin-form');
@@ -21,7 +21,7 @@ if (registerForm) {
             validateName(lastName.value, 'Last name');
             validateEmail(email.value);
             validateUsername(username.value);
-            //validatePassword(password.value);
+            validatePassword(password.value);
             console.log(password.value);
         } catch (error) {
             errorMessages.push(error.message);
