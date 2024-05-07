@@ -16,9 +16,13 @@
     <main>
         <div id="content">
             {{{body}}}
+            {{#if error}}
+                {{> error}}
+            {{/if}}  
 
         </div>
-        
+  
+
     </main>
     <script src="../../public/js/client_side_validation.js"></script>
     <footer></footer>
