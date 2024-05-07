@@ -1,9 +1,10 @@
 import { Router } from "express";
 const router = Router();
 import * as users from "../data/users.js";
-import { validateUsername, validatePassword } from "../validation.js";
+import { validateUsername, validatePassword, validateEmail } from "../validation.js";
 import { ObjectId } from "mongodb";
 import xss from "xss";
+
 
 router.get("/", (req, res) => {
   return res.render("home");

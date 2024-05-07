@@ -8,6 +8,7 @@ import configRoutes from './routes/index.js';
 import exphbs from 'express-handlebars';
 import {fileURLToPath} from 'url';
 import {dirname} from 'path';
+import { validateEmail, validatePassword } from './validation.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -128,3 +129,4 @@ app.get('/home', (req, res, next) => {
 app.listen(3000, () => {
     console.log('Routes are running on http://localhost:3000');
 })
+
