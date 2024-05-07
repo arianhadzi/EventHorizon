@@ -1,5 +1,4 @@
 //Client-side validation
-import validation from '../../validation.js';
 
 let registerForm = document.getElementById('signup-form');
 let loginForm = document.getElementById('signin-form');
@@ -67,6 +66,24 @@ if (registerForm) {
             registerForm.submit();
         }
     });
-
 }
 
+if (loginForm) {
+    loginForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        let errorMessages = [];
+
+        if (!username.value) {
+            errorMessages.push('Username is missing!');
+        }
+        if (!password.value) {
+            errorMessages.push('Password is missing!');
+        }
+        if (errorMessages.length > 0) {
+            let errorString = errorMessages.join('\n');
+            alert(errorString);
+        } else {
+            loginForm.submit();
+        }
+    });
+}
