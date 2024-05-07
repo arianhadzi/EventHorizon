@@ -35,15 +35,22 @@ app.use(express.urlencoded({ extended: true }));
 app.engine('handlebars', handlebarsInstance.engine);
 app.set('view engine', 'handlebars');
 
+app.use(session({
+  name: 'AuthenticationState',
+  secret: 'ssshh secret',
+  resave: false,
+  saveUninitialized: false
+}))
+
 configRoutes(app);
 
 // 1
 app.use((req, res, next) => {
-  const isAuthenticated = req.session.user ? true : false;
-  const role = isAuthenticated ? req.session.user.role : 'Non-Authenticated User';
+  const isLoggedIn = req.session.user ? true : false;
+  const role = isLoggedIn ? req.session.user : 'Not logged in';
   console.log(`[${new Date().toUTCString()}]: ${req.method} ${req.originalUrl} (${role})`);
   if (req.originalUrl === '/') {
-      if (!isAuthenticated) {
+      if (!isLoggedIn) {
           return res.redirect('/login');
       } 
   }
@@ -70,7 +77,7 @@ app.get('/register', (req, res, next) => {
    return res.render('register');
 });
 
-app.use((req, res, next) => {
+app.use( (req, res, next) => {
   res.locals.loggedIn = req.session.loggedIn || false; // Make loggedIn status available to all views
   next();
 });

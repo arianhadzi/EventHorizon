@@ -12,7 +12,6 @@ export const registerUser = async (
     email,
     password,
   ) => {
-    console.log(username)
     let userCollection = undefined;
     try{
       userCollection = await users();
@@ -35,7 +34,7 @@ export const registerUser = async (
       throw new Error(`Error during user registeration: ${e.message}`);
     }
 
-    const saltRounds = 16;
+    const saltRounds = 12;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const insertResult = await userCollection.insertOne({
         firstName: firstName,
@@ -70,10 +69,11 @@ export const registerUser = async (
       if(!isMatch){
       throw new Error('Either the username or password is invalid')
       }
-
       return {
-        email: user.email,
-        username: user.username,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email : user.email,
+        username: user.username
       };
   
     }catch(e){
