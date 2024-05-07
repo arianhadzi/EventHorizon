@@ -1,7 +1,5 @@
 //Client-side validation
 
-import {validateName, validatePassword, validateEmail} from "../../validation.js";
-
 let registerForm = document.getElementById('signup-form');
 let loginForm = document.getElementById('signin-form');
 let firstName = document.getElementById('firstName');
@@ -17,12 +15,53 @@ if (registerForm) {
         console.log(password.value);
 
         try {
-            validateName(firstName.value, 'First name');
-            validateName(lastName.value, 'Last name');
-            validateEmail(email.value);
-            validateUsername(username.value);
-            validatePassword(password.value);
-            console.log(password.value);
+
+            if (!firstName.value) {
+                errorMessages.push('First name is missing!');
+            }
+            if (!lastName.value) {
+                errorMessages.push('Last name is missing!');
+            }  
+            if (!email.value) {
+                errorMessages.push('Email is missing!');
+            }    
+            if (!username.value) {
+                errorMessages.push('Username is missing!');
+            }
+            if (!password.value) {
+                errorMessages.push('First name is missing!');
+            }
+            if (!confirmPassword.value) {
+                errorMessages.push('First name is missing!');
+            }
+
+            firstName.value = firstName.value.trim();
+            lastName.value = lastName.value.trim();
+            username.value = username.value.trim();
+            email.value = email.value.trim();
+            password.value = password.value.trim();
+            confirmPassword.value = confirmPassword.value.trim();
+
+            if (firstName.value.length < 2 || firstName.value.length > 25 || /\d/.test(firstName.value)) {
+                errorMessages.push('FirstName should be 2-25 characters long or contain numbers!');
+            }
+            if (lastName.value.length < 2 || lastName.value.length > 25 || /\d/.test(lastName.value)) {
+                errorMessages.push('lastName should be 2-25 characters long or contain numbers!');
+            }
+            if (! /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email.value)) {
+                errorMessages.push('email should be valid!');
+            }
+            if (username.value.length < 5 || username.value.length > 10 || /\d/.test(username.value)) {
+                errorMessages.push('Username must be 5-10 characters long and cannot contain numbers!');
+            }
+            if (password.value.length < 8 || 
+                !/[A-Z]/.test(password.value) || !/\d/.test(password.value) || !/[!@#$%^&*(),.?":{}|<>]/.test(password.value)) {
+                    errorMessages.push('Password must be at least 8 characters, include at least one uppercase letter, one number, and one special character!');
+            }
+            if (password.value !== confirmPassword.value) {
+                errorMessages.push('Passwords do not match!');
+            }
+
         } catch (error) {
             errorMessages.push(error.message);
         }
@@ -42,8 +81,20 @@ if (loginForm) {
         let errorMessages = [];
 
         try {
-            validateUsername(username.value);
-            validatePassword(password.value);
+            if (!username.value) {
+                errorMessages.push('Username is missing!');
+            }
+            if (!password.value) {
+                errorMessages.push('Password is missing!');
+            }
+    
+            if (username.value.length < 5 || username.value.length > 10 || /\d/.test(username.value)) {
+                errorMessages.push('Username must be 5-10 characters long and cannot contain numbers!');
+            }
+            if (password.value.length < 8 || 
+                !/[A-Z]/.test(password.value) || !/\d/.test(password.value) || !/[!@#$%^&*(),.?":{}|<>]/.test(password.value)) {
+                    errorMessages.push('Password must be at least 8 characters, include at least one uppercase letter, one number, and one special character!');
+            }
         } catch (error) {
             errorMessages.push(error.message);
         }
