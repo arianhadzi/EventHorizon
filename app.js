@@ -74,6 +74,10 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get('/', (req, res) => {
+  const loggedIn = req.session.user ? true : false;
+  return res.render('home', {loggedIn});
+});
 
 // User profile middleware
 app.get('/user', (req, res, next) => {
@@ -119,11 +123,6 @@ app.get('/bookmarks', (req, res, next) => {
 
 app.get('/home', (req, res, next) => {
   return res.render('home');
-});
-
-app.get('/', (req, res) => {
-  const loggedIn = req.session.user ? true : false;
-  return res.render('home', {loggedIn});
 });
 
 app.listen(3000, () => {

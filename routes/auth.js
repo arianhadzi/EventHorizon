@@ -7,11 +7,11 @@ import xss from 'xss';
 
 
 router.get('/', (req, res) => {
-    res.render('home');
+    return res.render('home');
   });
 
 router.get('/home', (req, res) => {
-  res.render('home');
+  return res.render('home');
 });
 
 router
@@ -70,15 +70,15 @@ router
         req.body.password,
       );
       if (newUser.signupCompleted) {
-        res.redirect('/login');
+        return res.redirect('/login');
       } else {
-        res.status(500).render('register', {
+        return res.status(500).render('register', {
           title: 'Register',
           error: 'Error: Internal Server Error',
         });
       }
     } catch (e) {
-      res.status(400).render('register', {
+      return res.status(400).render('register', {
         title: 'Register',
         error: e,
       });
@@ -88,7 +88,7 @@ router
 router
   .route('/login')
   .get(async (req, res) => {
-    res.render('login', { title: 'Login'});
+    return res.render('login', { title: 'Login'});
   })
   .post(async (req, res) => {
     if (!req.body.username) {
@@ -113,7 +113,7 @@ router
         req.session.user = login;
         req.session.loggedIn = true;
       } catch (e) {
-        res.status(400).render('login', {
+        return res.status(400).render('login', {
           title: 'Login',
           error: e,
         });
@@ -129,30 +129,18 @@ router
 router
   .route('/user')
   .get(async (req, res) => {
-    res.render('user', {
-      title: 'user',
-      firstName: req.session.firstName,
-      lastName: req.session.user.lastName,
-      currentTime: new Date().toLocaleTimeString(),
-      // title: 'user',
-      // firstName: req.session.firstName,
-      // lastName: req.session.user.lastName,
-      // currentTime: new Date().toLocaleTimeString(),
-    });
     try{
     if(req.session.user){
-      res.render('user', {
-        // title: 'user',
-        // firstName: req.session.firstName,
-        // lastName: req.session.user.lastName,
-        // currentTime: new Date().toLocaleTimeString(),
+      return res.render('user', {
+        firstName: req.session.firstName,
+        lastName: req.session.user.lastName,
+        currentTime: new Date().toLocaleTimeString(),
       });
     }
   }
   catch(e){
     res.render('login');
   }
-    
   });
 
 
@@ -202,7 +190,7 @@ router.get('/home', (req, res) => {
 
 router.get('/event', (req, res) => {
   res.render('event', {
-    r
+  
   });
 });
 
