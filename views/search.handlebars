@@ -44,5 +44,18 @@
         </div>
 
         <button id="submitButton" type="submit" name="submitButton">Submit</button>
+
+    <ol>
+
+    {{#each searchList}}
+
+    <li>
+    <a href="/event/{{_id.toString()}}">{{eventName}}</a>
+  </li>
+
+    {{/each}}
+
+    </ol>
+
     </form>
     <script src="/public/js/dateDropdown.js"></script>
