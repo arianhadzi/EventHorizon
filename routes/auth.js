@@ -297,6 +297,15 @@ router.get("/event", (req, res) => {
   }
 });
 
+router.get('/api/events', async (req, res) => {
+  try {
+      const events = await e.default.getAll();
+      res.json(events);
+  } catch (error) {
+      res.status(500).send(error.toString());
+  }
+});
+
 
 
 export default router;

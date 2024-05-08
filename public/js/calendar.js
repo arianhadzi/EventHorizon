@@ -1,7 +1,11 @@
 async function fetchEventsForMonth(year, month) {
     try {
         const response = await fetch(`/api/events`);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch events: ${response.status} ${response.statusText}`);
+        }
         const events = await response.json();
+        console.log("Events from API:", events);
         return events.filter(event => {
             const eventDate = new Date(event.eventDate);
             return eventDate.getFullYear() === year && eventDate.getMonth() === month;
@@ -11,6 +15,7 @@ async function fetchEventsForMonth(year, month) {
         return [];
     }
 }
+
 
 
 async function generateCalendar(year, month) {
