@@ -9,12 +9,12 @@ await users.registerUser(
     'Choi',
     'kachoi',
     'katechoi@gmail.com',
-    'ez123456@!'
+    'Ez123456@!'
 );
 
 await users.loginUser(
     'kchoi',
-    'ez123456@!',
+    'Ez123456@!',
 );
 
 await users.registerUser(
@@ -22,12 +22,12 @@ await users.registerUser(
     'Smooth',
     'imsosmooth',
     'mandysmooth@hotmail.com',
-    'isaiah6tyone@here'
+    'Isaiah6tyone@here'
 );
 
 await users.loginUser(
     'imsosmooth',
-    'isaiah6tyone@here',
+    'Isaiah6tyone@here',
 )
 
 console.log('Done seeding database');
