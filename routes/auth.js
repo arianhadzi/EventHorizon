@@ -306,7 +306,6 @@ router.get('/event/:id', async (req,res) => {
   }
 
   try{
-    console.log(typeof req.params.id);
     const event = await e.default.get(req.params.id);
     if(!event){
       return res.status(404).render('error', {
