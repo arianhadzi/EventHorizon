@@ -107,6 +107,27 @@ function validateName(name) {
   return name.trim();
 }
 
+function validateEvent(event) {
+  if (event.length < 2 || event.length > 25) {
+    throw 'Error: the length of event cannot be less than 2 characters or over 25.'
+  }
+  return event;
+}
+
+function validateDescription(description) {
+  if (description.length < 2 || description.length > 250) {
+    throw 'Error: the description cannot be less than 2 characters or over 250.'
+  }
+  return description;
+}
+
+function validateLocation(location) {
+  if (location.length < 2 || location.length > 25) {
+    throw 'Error: the location cannot be less than 2 or over 25 characters.'
+  }
+  return location;
+}
+
 export {
   checkId,
   checkString,
@@ -116,4 +137,7 @@ export {
   validateField,
   validateEmail,
   validateName,
+  validateEvent,
+  validateDescription,
+  validateLocation,
 };

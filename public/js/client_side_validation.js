@@ -146,17 +146,26 @@ if (createEventForm) {
             if (!isNaN(eventName.value)) {
                 errorMessages.push('The event name cannot contain only digits!');
             }
+            if (eventName.value.length < 2 || eventName.value.length > 25) {
+                errorMessages.push('The length of the event cannot be less than 2 characters or over 25!');
+            }
             if (eventDescription.value.length === 0) {
                 errorMessages.push('The event description cannot be an empty string or is just spaces!');
             }
             if (!isNaN(eventDescription.value)) {
                 errorMessages.push('The event description cannot contain only digits!');
             }
+            if (eventDescription.value.length < 2 || eventDescription.value.length > 250) {
+                errorMessages.push('The description cannot be less than 2 characters or over 250!');
+            }
             if (eventLocation.value.length === 0) {
                 errorMessages.push('The event location cannot be an empty string or is just spaces!');
             }
             if (!isNaN(eventLocation.value)) {
                 errorMessages.push('The event location cannot contain only digits!');
+            }
+            if (eventLocation.value.length < 2 || eventLocation.value.length > 25) {
+                errorMessages.push('The location cannot be less than 2 or over 25 characters!');
             }
 
         } catch (error) {
