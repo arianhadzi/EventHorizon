@@ -198,10 +198,10 @@ router.route("/create-event").get(async (req, res) => {
     let eventCategory = req.body.category
 
     let newEvent = await e.default.create(eventOrganizer, eventOrganizerName, eventName, eventDate, eventDescription, eventLocation, eventCategory)
-
+    let newNewEvent = newEvent._id.toString()
     if (!newEvent) throw 'Event could not be created'
     console.log(newEvent)
-    res.redirect('/event/:id')
+    res.redirect('/event/' + newNewEvent)
 
   }catch(e){
     return res.status(400).render("create_event", {
