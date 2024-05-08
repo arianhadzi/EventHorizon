@@ -199,7 +199,7 @@ let eventDescription = req.body.eventDescription
 let eventLocation = req.body.eventLocation
 let eventCategory = req.body.category
 
-let newEvent = await e.create(eventOrganizer, eventOrganizerName, eventName, eventDate, eventDescription, eventLocation, eventCategory)
+let newEvent = await e.default.create(eventOrganizer, eventOrganizerName, eventName, eventDate, eventDescription, eventLocation, eventCategory)
 
 if (!newEvent) throw 'Event could not be created'
 
