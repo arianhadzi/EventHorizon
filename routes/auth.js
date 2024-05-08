@@ -212,7 +212,6 @@ res.redirect('/event')
     return res.status(400).render("create_event", {
       title: "Create Event",
       error: e,
-      loggedIn: req.session.loggedIn
     })
 
   }
@@ -265,6 +264,20 @@ router.route("/bookmarks").get(async (req, res) => {
 
 });
 
+router.route("/create-comment").post(async (req, res) => {
+  if(req.session.user){
+    res.render("event", {
+      session : req.session,
+      loggedIn: req.session.loggedIn,
+      user: req.session.user
+      comment: req.session.comment});
+  } else{
+    res.redirect('/login');
+  }
+});
+
+
+
 /*
 router.get("/home", (req, res) => {
   res.render("home", {
@@ -283,6 +296,7 @@ router.get("/event", (req, res) => {
     res.redirect('/login');
   }
 });
+
 
 
 export default router;
