@@ -195,7 +195,7 @@ let eventOrganizer = eventID.toString()
 let eventOrganizerName = req.session.user.firstName + " " + req.session.user.lastName
 let eventName = req.body.eventName
 let eventDate = req.body.eventDate
-let eventDescription = req.body.eventDescription
+let eventDescription = eventOrganizerName + " has created event titled " + eventName + " which will be at the location: " + req.body.eventLocation + ". Event Description : " + req.body.eventDescription
 let eventLocation = req.body.eventLocation
 let eventCategory = req.body.category
 
