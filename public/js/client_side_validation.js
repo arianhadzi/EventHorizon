@@ -130,9 +130,6 @@ if (createEventForm) {
             if (!eventLocation.value) {
                 errorMessages.push('The event location is missing!');
             }
-            if (!category.value) {
-                errorMessages.push('The category is missing!');
-            }
 
             eventName.value = eventName.value.trim();
             eventDescription.value = eventDescription.value.trim();
