@@ -1,18 +1,27 @@
 
+<h1 id="eventName">{eventName}</h1>
+<main>
+    <h2 id="eventTime">{eventTime}</h2>
+    <h2 id="eventLocation">{eventLocation}</h2>
+    <p  id="eventDescription">{eventDescription}</p>
 
-<div id="eventDetails">
-    <h1 id="eventName">{{eventName}}</h1>
-    <main>
-        <h2 id="eventTime">{{eventTime}}</h2>
-        <h2 id="eventLocation">{{eventLocation}}</h2>
-        <p id="eventDescription">{{eventDescription}}</p>
-    </main>
-        <a id="report_event" href="/report_event">Logout</a>
-        <button id="bookmarkEvent">Bookmark Event</button>
-</div>
-<div> 
-    <a id="bookmarks" href='/bookmarks'>View BookMarks</a>
-</div>
-<script> 
-    
+    <div id="comments">
+        <div id="comment"></div>
+    </div>
+
+     <form id="signup-form" action="/register" method="post">
+        <label for="confirmPassword">Add comment:</label>
+            <input type="text" id="newComment" name="newComment" placeholder="Start typing...">
+            <button
+                id="submitButton"
+                type="submit"
+                name="submitButton"
+            >Submit</button>
+     </form>
+
+</main>
+
+<script>
+    var comment = document.getElementById("newComment").textContent
 </script>
+
