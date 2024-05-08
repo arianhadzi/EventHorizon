@@ -7,6 +7,12 @@ let lastName = document.getElementById('lastName');
 let email = document.getElementById('email');
 let username = document.getElementById('username');
 let password = document.getElementById('password');
+let createEventForm = document.getElementById('create-event-form');
+let eventName = document.getElementById('eventName');
+let eventDescription = document.getElementById('eventDescription');
+let dateSelects = document.getElementById('date-selects');
+let eventLocation = document.getElementById('eventLocation');
+let category = document.getElementById('category');
 
 if (registerForm) {
     registerForm.addEventListener('submit', (event) => {
@@ -104,6 +110,42 @@ if (loginForm) {
             alert(errorString);
         } else {
             loginForm.submit();
+        }
+    });
+}
+
+if (createEventForm) {
+    createEventForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        let errorMessages = [];
+
+        try {
+            if (!eventName.value) {
+                errorMessages.push('The event name is missing!');
+            }
+            if (!eventDescription.value) {
+                errorMessages.push('The event description is missing!');
+            }
+
+            if (!dateSelects) {
+                errorMessages.push('Please select the date!');
+            }
+            if (!eventLocation) {
+                errorMessages.push('The event location is missing!');
+            }
+            if (!category) {
+                errorMessages.push('The category is missing!');
+            }
+
+        } catch (error) {
+            errorMessages.push(error.message);
+        }
+
+        if (errorMessages.length > 0) {
+            let errorString = errorMessages.join('\n');
+            alert(errorString);
+        } else {
+            createEventForm.submit();
         }
     });
 }
