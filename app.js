@@ -44,6 +44,16 @@ app.use(session({
 
 configRoutes(app);
 
+// 0 API route for events
+app.get('/api/events', async (req, res) => {
+  try {
+      const events = await exportedMethods.getAll();
+      res.json(events);
+  } catch (error) {
+      res.status(500).send(error.toString());
+  }
+});
+
 // 1
 app.use((req, res, next) => {
   const isLoggedIn = req.session.user ? true : false;
