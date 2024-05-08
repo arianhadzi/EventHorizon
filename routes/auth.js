@@ -269,7 +269,7 @@ router.route("/create-comment").post(async (req, res) => {
     res.render("event", {
       session : req.session,
       loggedIn: req.session.loggedIn,
-      user: req.session.user
+      user: req.session.user,
       comment: req.session.comment});
   } else{
     res.redirect('/login');
