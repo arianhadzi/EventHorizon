@@ -184,7 +184,39 @@ router.route("/create-event").get(async (req, res) => {
     res.redirect('/login');
   }
 
-});
+})
+  .post(async (req, res) => {
+
+  try{
+
+let eventID = req.session.user._id
+
+let eventOrganizer = eventID.toString()
+let eventOrganizerName = req.session.user.firstName + " " + req.session.user.lastName
+let eventName = req.body.eventName
+let eventDate = req.body.eventDate
+let eventDescription = req.body.eventDescription
+let eventLocation = req.body.eventLocation
+let eventCategory = req.body.category
+
+let newEvent = await e.create(eventOrganizer, eventOrganizerName, eventName, eventDate, eventDescription, eventLocation, eventCategory)
+
+if (!newEvent) throw 'Event could not be created'
+
+console.log(newEvent)
+
+res.redirect('/event')
+
+  }catch(e){
+
+    return res.status(400).render("/create-event", {
+      title: "Create Event",
+      error: e,
+    })
+
+  }
+
+});;
 
 router.route("/verify-organizer").get(async (req, res) => {
   if(req.session.user){

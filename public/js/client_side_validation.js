@@ -10,7 +10,7 @@ let password = document.getElementById('password');
 let createEventForm = document.getElementById('create-event-form');
 let eventName = document.getElementById('eventName');
 let eventDescription = document.getElementById('eventDescription');
-let dateSelects = document.getElementById('date-selects');
+let date = document.getElementById('date');
 let eventLocation = document.getElementById('eventLocation');
 let category = document.getElementById('category');
 
@@ -126,9 +126,7 @@ if (createEventForm) {
             if (!eventDescription.value) {
                 errorMessages.push('The event description is missing!');
             }
-            if (!dateSelects.value) {
-                errorMessages.push('Please select the date!');
-            }
+
             if (!eventLocation.value) {
                 errorMessages.push('The event location is missing!');
             }
