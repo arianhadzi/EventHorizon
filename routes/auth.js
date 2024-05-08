@@ -308,7 +308,6 @@ router.get('/event/:id', async (req,res) => {
     if(!event){
       throw 'Event not found!'
     }
-
     return res.render('event', {
       session: req.session,
       loggedIn: req.session.loggedIn,
