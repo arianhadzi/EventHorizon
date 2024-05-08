@@ -70,6 +70,7 @@ export const registerUser = async (
       throw new Error('Either the username or password is invalid')
       }
       return {
+        id: user._id,
         firstName: user.firstName,
         lastName: user.lastName,
         email : user.email,
