@@ -33,7 +33,7 @@ export const registerUser = async (
     } catch(e){
       throw new Error(`Error during user registeration: ${e.message}`);
     }
-
+    let bookmarks = [];
     const saltRounds = 12;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const insertResult = await userCollection.insertOne({
@@ -42,6 +42,7 @@ export const registerUser = async (
         email: email,
         username: username,
         password: hashedPassword,
+        bookmarks: bookmarks,
     });
 
     if (insertResult.insertedCount === 0) {
@@ -74,7 +75,8 @@ export const registerUser = async (
         firstName: user.firstName,
         lastName: user.lastName,
         email : user.email,
-        username: user.username
+        username: user.username,
+        bookmarks: user.bookmarks,
       };
   
     }catch(e){
