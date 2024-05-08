@@ -107,7 +107,11 @@ router
 router
   .route("/login")
   .get(async (req, res) => {
-    return res.render("login", { title: "Login" });
+    if(req.session.user){
+      return res.redirect('/home');
+    }else {
+      return res.render("login", { title: "Login" });
+    }
   })
   .post(async (req, res) => {
     if (!req.body.username) {
@@ -168,39 +172,63 @@ router.route("/logout").get(async (req, res) => {
   req.session.destroy();
   res.render("logout", { title: "Logout" });
 });
+
 router.route("/create-event").get(async (req, res) => {
-  res.render("create_event", {
-    session : req.session,
-    loggedIn: req.session.loggedIn,
-    user: req.session.user});
+  if(req.session.user){
+    res.render("create_event", {
+      session : req.session,
+      loggedIn: req.session.loggedIn,
+      user: req.session.user});
+  }else{
+    res.redirect('/login');
+  }
+
 });
 
 router.route("/verify-organizer").get(async (req, res) => {
+  if(req.session.user){
   res.render("verify_organizer", {
     session : req.session,
     loggedIn: req.session.loggedIn,
     user: req.session.user});
+  } else{
+    res.redirect('/login');
+  }
 });
 
 router.route("/search").get(async (req, res) => {
-  res.render("search", {
-    session : req.session,
-    loggedIn: req.session.loggedIn,
-    user: req.session.user});
+  if(req.session.user){
+    res.render("search", {
+      session : req.session,
+      loggedIn: req.session.loggedIn,
+      user: req.session.user});
+  } else{
+    res.redirect('/login')
+  }
+  
 });
 
 router.route("/calendar").get(async (req, res) => {
-  res.render("calendar", {
-    session : req.session,
-    loggedIn: req.session.loggedIn,
-    user: req.session.user});
+  if(req.session.user){
+    res.render("calendar", {
+      session : req.session,
+      loggedIn: req.session.loggedIn,
+      user: req.session.user});
+  } else{
+    res.redirect('/login');
+  }
 });
 
 router.route("/bookmarks").get(async (req, res) => {
-  res.render("bookmarks", {
-    session : req.session,
-    loggedIn: req.session.loggedIn,
-    user: req.session.user});
+  if(req.session.user){
+    res.render("bookmarks", {
+      session : req.session,
+      loggedIn: req.session.loggedIn,
+      user: req.session.user});
+  } else{
+    res.redirect('/login');
+  }
+
 });
 
 /*
@@ -212,10 +240,14 @@ router.get("/home", (req, res) => {
 });
 */
 router.get("/event", (req, res) => {
-  res.render("event", {
+  if(req.session.user){
+    res.render("event", {
       session : req.session,
       loggedIn: req.session.loggedIn,
       user: req.session.user});
+  }else{
+    res.redirect('/login');
+  }
 });
 
 
