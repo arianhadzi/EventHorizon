@@ -8,7 +8,7 @@ let exportedMethods = {
 create: async (eventOrganizer, eventOrganizerName, eventName, eventDate, eventDescription, eventLocation, eventCategory) => 
 
 {
-
+try{
 const event = await events()
 
 if (!eventCategory || eventCategory.length === 0) throw 'Please provide at least one category'
@@ -30,11 +30,14 @@ const newId = insertInfo.insertedId.toString();
 const insertedEvent = await get(newId);
 
 return insertedEvent;
+} catch(e){
+    throw new Error(e);
+  }
 
 },
 
 getAll : async () => {
-
+    try{
     const event = await events()
   
     let eventList = await event.find({}).toArray();
@@ -59,12 +62,14 @@ getAll : async () => {
    
     return eventList;
   
-  },
+} catch(e){
+    throw new Error(e);
+  }},
 
 
 get : async(eventID) => 
 
-{
+{try{
     eventID = validation.checkId(eventID)
 
     const event = await events();
@@ -78,12 +83,14 @@ get : async(eventID) =>
     //ev._id = idno.toString();
     
     return ev;
-
+} catch(e){
+    throw new Error(e);
+  }
 },
 
 remove : async(eventID) => 
 
-{
+{try{
 
     eventID = validation.checkId(eventID)
       
@@ -96,13 +103,15 @@ remove : async(eventID) =>
     if (!deletedEv) throw 'Could not find event';
     
     return deletedEv.eventName + ' has been deleted';
-
+} catch(e){
+    throw new Error(e);
+  }
 },
 
 update : async(eventID, eventName, eventDate, eventDescription, eventLocation, eventCategory) =>
 
 {
-
+try{
 const event = await events()
 
 eventID = validation.checkId(eventID)
@@ -128,13 +137,15 @@ if (!updatedEvent) throw 'Could not update event'
 //updatedEvent._id = idno.toString();
   
 return updatedEvent;
-
+} catch(e){
+    throw new Error(e);
+  }
 },
 
 search : async(orgTerms, titleTerms, descTerms, locTerms, maxDate = new Date(), minDate = new Date("1970-01-01"), maxRating = 5, minRating = 0, minComments = 0, minRatings = 0, categories) =>
 
 {
-
+try{
 if (!orgTerms && !titleTerms && !descTerms && !locTerms && !maxDate && !minDate && !categories) throw 'Please provide at least one field'
 
 const event = await events()
@@ -178,8 +189,10 @@ if (!searchList) throw 'Could not get all events';
    
     return searchList;
 
+} catch(e){
+    throw new Error(e);
+  }
 }
-
 }
 
 export default exportedMethods;

@@ -147,10 +147,6 @@ router
     }
   });
 
-router.route("/logout").get(async (req, res) => {
-  res.render("logout");
-});
-
 router.route("/user").get(async (req, res) => {
   try {
     if (req.session.user) {
@@ -199,12 +195,13 @@ router.route("/bookmarks").get(async (req, res) => {
     loggedIn: req.session.loggedIn});
 });
 
+/*
 router.get("/home", (req, res) => {
   res.render("home", {
     session : req.session,
     loggedIn: req.session.loggedIn});
 });
-
+*/
 router.get("/event", (req, res) => {
   res.render("event", {
     session : req.session,
