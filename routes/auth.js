@@ -212,6 +212,7 @@ res.redirect('/event')
     return res.status(400).render("create_event", {
       title: "Create Event",
       error: e,
+      loggedIn: req.session.loggedIn
     })
 
   }
