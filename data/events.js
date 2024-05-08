@@ -150,7 +150,7 @@ search : async(terms, maxDate = new Date(), minDate = new Date("1970-01-01"), ma
 
 {
 try{
-if (!orgTerms && !titleTerms && !descTerms && !locTerms && !maxDate && !minDate && !categories) throw 'Please provide at least one field'
+if (!terms && !maxDate && !minDate && !categories) throw 'Please provide at least one field'
 
 const event = await events()
 
@@ -161,7 +161,7 @@ terms = terms.split(" ")
 
 terms = terms.map(word => `(?=.*\\b${word}\\b)`).join("");
 
-let searchList = await event.find({eventDescription : new RegExp(descTerms, "i"),
+let searchList = await event.find({eventDescription : new RegExp(terms, "i"),
 eventCategory : {$all : categories}, avgRating : {$gte: minRating, $lte: maxRating}, noOfComments : {$gte: minComments}, noOfRatings : {$gte : minRatings}, 
 eventDate : {$gte : minDate, $lte : maxDate}}).toArray
 
