@@ -23,7 +23,7 @@ eventName = validation.validateEvent(eventName);
 eventDescription = validation.validateDescription(eventDescription);
 eventLocation = validation.validateLocation(eventLocation);
 
-let newEvent = {eventOrganizer, eventOrganizerName, eventDate, eventDescription, eventLocation, eventCategory, eventComments : [], noOfComments : 0, avgRating : 0, noOfRatings : 0, verified: false}
+let newEvent = {eventName, eventOrganizer, eventOrganizerName, eventDate, eventDescription, eventLocation, eventCategory, eventComments : [], noOfComments : 0, avgRating : 0, noOfRatings : 0, verified: false}
 
 const insertInfo = await event.insertOne(newEvent);
   
