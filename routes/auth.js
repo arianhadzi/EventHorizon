@@ -306,23 +306,29 @@ router.get('/event/:id', async (req,res) => {
   }
 
   try{
-    const eventID = req.params.id;
-    const event = await e.default.get(eventID);
+    console.log(typeof req.params.id);
+    const event = await e.default.get(req.params.id);
     if(!event){
-      throw 'Event not found!'
+      return res.status(404).render('error', {
+        title: 'Event Not Found',
+        error: 'No event found with the provided ID',
+        loggedIn: req.session.loggedIn
+      });
     }
 
     return res.render('event', {
       session: req.session,
       loggedIn: req.session.loggedIn,
       user: req.session.user,
-      event
+      eventName: event.eventName,
+      eventTime: event.eventDate,
+      eventLocation: event.eventLocation,
+      eventDescription: event.eventDescription
     })
   }catch(e){
-    console.error('Error fetching event:', e);
     return res.status(404).render('error', {
-      title: 'Error',
-      error: 'Event not found',
+      title: 'Error fetching event',
+      error: 'Error fetching event',
       loggedIn: req.session.loggedIn
   });
   }
