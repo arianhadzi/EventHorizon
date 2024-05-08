@@ -151,7 +151,7 @@ if (createEventForm) {
                 errorMessages.push('The event description cannot contain only digits!');
             }
             if (eventDescription.value.length < 2 || eventDescription.value.length > 250) {
-                errorMessages.push('The description cannot be less than 2 characters or over 250!');
+                errorMessages.push('The event description cannot be less than 2 characters or over 250!');
             }
             if (eventLocation.value.length === 0) {
                 errorMessages.push('The event location cannot be an empty string or is just spaces!');
