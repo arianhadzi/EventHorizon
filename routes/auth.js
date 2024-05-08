@@ -318,6 +318,7 @@ router.get('/event/:id', async (req,res) => {
     return res.render('event', {
       session: req.session,
       loggedIn: req.session.loggedIn,
+      eventId: event._id,
       user: req.session.user,
       eventName: event.eventName,
       eventTime: event.eventDate,
