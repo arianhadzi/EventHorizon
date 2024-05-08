@@ -126,15 +126,37 @@ if (createEventForm) {
             if (!eventDescription.value) {
                 errorMessages.push('The event description is missing!');
             }
-
-            if (!dateSelects) {
+            if (!dateSelects.value) {
                 errorMessages.push('Please select the date!');
             }
-            if (!eventLocation) {
+            if (!eventLocation.value) {
                 errorMessages.push('The event location is missing!');
             }
-            if (!category) {
+            if (!category.value) {
                 errorMessages.push('The category is missing!');
+            }
+
+            eventName.value = eventName.value.trim();
+            eventDescription.value = eventDescription.value.trim();
+            eventLocation.value = eventLocation.value.trim();
+
+            if (eventName.value.length === 0) {
+                errorMessages.push('The event name cannot be an empty string or is just spaces!');
+            }
+            if (!isNaN(eventName.value)) {
+                errorMessages.push('The event name cannot contain only digits!');
+            }
+            if (eventDescription.value.length === 0) {
+                errorMessages.push('The event description cannot be an empty string or is just spaces!');
+            }
+            if (!isNaN(eventDescription.value)) {
+                errorMessages.push('The event description cannot contain only digits!');
+            }
+            if (eventLocation.value.length === 0) {
+                errorMessages.push('The event location cannot be an empty string or is just spaces!');
+            }
+            if (!isNaN(eventLocation.value)) {
+                errorMessages.push('The event location cannot contain only digits!');
             }
 
         } catch (error) {
