@@ -126,9 +126,7 @@ if (createEventForm) {
             if (!eventDescription.value) {
                 errorMessages.push('The event description is missing!');
             }
-            if (!date.value) {
-                errorMessages.push('Please select the date!');
-            }
+
             if (!eventLocation.value) {
                 errorMessages.push('The event location is missing!');
             }
