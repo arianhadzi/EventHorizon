@@ -31,7 +31,7 @@ if (!insertInfo.acknowledged || !insertInfo.insertedId) throw 'Could not add eve
 
 const newId = insertInfo.insertedId.toString();
 
-const insertedEvent = await get(newId);
+const insertedEvent = await exportedMethods.get(newId);
 
 return insertedEvent;
 } catch(e){
