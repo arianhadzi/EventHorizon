@@ -183,32 +183,27 @@ router.route("/create-event").get(async (req, res) => {
   }else{
     res.redirect('/login');
   }
-
 })
   .post(async (req, res) => {
-
   try{
 
-let eventID = req.session.user.id
+    let eventID = req.session.user.id
 
-let eventOrganizer = eventID.toString()
-let eventOrganizerName = req.session.user.firstName + " " + req.session.user.lastName
-let eventName = req.body.eventName
-let eventDate = req.body.eventDate
-let eventDescription = req.body.eventDescription
-let eventLocation = req.body.eventLocation
-let eventCategory = req.body.category
+    let eventOrganizer = eventID.toString()
+    let eventOrganizerName = req.session.user.firstName + " " + req.session.user.lastName
+    let eventName = req.body.eventName
+    let eventDate = req.body.eventDate
+    let eventDescription = req.body.eventDescription
+    let eventLocation = req.body.eventLocation
+    let eventCategory = req.body.category
 
-let newEvent = await e.default.create(eventOrganizer, eventOrganizerName, eventName, eventDate, eventDescription, eventLocation, eventCategory)
+    let newEvent = await e.default.create(eventOrganizer, eventOrganizerName, eventName, eventDate, eventDescription, eventLocation, eventCategory)
 
-if (!newEvent) throw 'Event could not be created'
-
-console.log(newEvent)
-
-res.redirect('/event')
+    if (!newEvent) throw 'Event could not be created'
+    console.log(newEvent)
+    res.redirect('/event/:id')
 
   }catch(e){
-
     return res.status(400).render("create_event", {
       title: "Create Event",
       error: e,
@@ -265,11 +260,10 @@ router.route("/bookmarks").get(async (req, res) => {
 });
 
 router.route("/create-comment").get(async (req, res) => {
-  return res.redirect('event');
 })
 .post(async (req, res) => {
   if(req.body.comment){
-    res.render("event", {
+    res.redirect("/event/:id", {
       session : req.session,
       loggedIn: req.session.loggedIn,
       user: req.session.user,
@@ -289,7 +283,7 @@ router.get("/home", (req, res) => {
     user: req.session.user});
 });
 */
-router.get("/event", (req, res) => {
+router.get("/event", async(req, res) => {
   if(req.session.user){
     res.render("event", {
       session : req.session,
@@ -306,7 +300,6 @@ router.get('/event/:id', async (req,res) => {
   }
 
   try{
-    console.log(typeof req.params.id);
     const event = await e.default.get(req.params.id);
     if(!event){
       return res.status(404).render('error', {
