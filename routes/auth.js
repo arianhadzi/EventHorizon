@@ -189,7 +189,7 @@ router.route("/create-event").get(async (req, res) => {
 
   try{
 
-let eventID = req.session.user._id
+let eventID = req.session.user.id
 
 let eventOrganizer = eventID.toString()
 let eventOrganizerName = req.session.user.firstName + " " + req.session.user.lastName
