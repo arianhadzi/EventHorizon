@@ -12,7 +12,8 @@ router.get("/", (req, res) => {
   } else{
     return res.render("home", {
       session : req.session,
-      loggedIn: req.session.loggedIn});
+      loggedIn: req.session.loggedIn,
+      user: req.session.user});
   }
 });
 
@@ -22,7 +23,8 @@ router.get("/home", (req, res) => {
   } else{
     return res.render("home", {
       session : req.session,
-      loggedIn: req.session.loggedIn});
+      loggedIn: req.session.loggedIn,
+      user: req.session.user});
   }
 });
 
@@ -157,7 +159,8 @@ router.route("/user").get(async (req, res) => {
       return res.render("user", {
         currentTime: new Date().toLocaleTimeString(),      
         session : req.session,
-        loggedIn: req.session.loggedIn 
+        loggedIn: req.session.loggedIn, 
+        user: req.session.user
       });
     }
   } catch (e) {
@@ -172,43 +175,50 @@ router.route("/logout").get(async (req, res) => {
 router.route("/create-event").get(async (req, res) => {
   res.render("create_event", {
     session : req.session,
-    loggedIn: req.session.loggedIn});
+    loggedIn: req.session.loggedIn,
+    user: req.session.user});
 });
 
 router.route("/verify-organizer").get(async (req, res) => {
   res.render("verify_organizer", {
     session : req.session,
-    loggedIn: req.session.loggedIn});
+    loggedIn: req.session.loggedIn,
+    user: req.session.user});
 });
 
 router.route("/search").get(async (req, res) => {
   res.render("search", {
     session : req.session,
-    loggedIn: req.session.loggedIn});
+    loggedIn: req.session.loggedIn,
+    user: req.session.user});
 });
 
 router.route("/calendar").get(async (req, res) => {
   res.render("calendar", {
     session : req.session,
-    loggedIn: req.session.loggedIn});
+    loggedIn: req.session.loggedIn,
+    user: req.session.user});
 });
 
 router.route("/bookmarks").get(async (req, res) => {
   res.render("bookmarks", {
     session : req.session,
-    loggedIn: req.session.loggedIn});
+    loggedIn: req.session.loggedIn,
+    user: req.session.user});
 });
 
 router.get("/home", (req, res) => {
   res.render("home", {
     session : req.session,
-    loggedIn: req.session.loggedIn});
+    loggedIn: req.session.loggedIn,
+    user: req.session.user});
 });
 
 router.get("/event", (req, res) => {
   res.render("event", {
-    session : req.session,
-    loggedIn: req.session.loggedIn});
+      session : req.session,
+      loggedIn: req.session.loggedIn,
+      user: req.session.user});
 });
 
 
