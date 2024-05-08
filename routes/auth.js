@@ -300,6 +300,34 @@ router.get("/event", (req, res) => {
   }
 });
 
+router.get('/event/:id', async (req,res) => {
+  if(!req.session.user){
+    return res.redirect('/login');
+  }
+
+  try{
+    const eventID = req.params.id;
+    const event = await e.default.get(eventID);
+    if(!event){
+      throw 'Event not found!'
+    }
+
+    return res.render('event', {
+      session: req.session,
+      loggedIn: req.session.loggedIn,
+      user: req.session.user,
+      event
+    })
+  }catch(e){
+    console.error('Error fetching event:', e);
+    return res.status(404).render('error', {
+      title: 'Error',
+      error: 'Event not found',
+      loggedIn: req.session.loggedIn
+  });
+  }
+});
+
 router.get('/api/events', async (req, res) => {
   try {
       const events = await e.default.getAll();

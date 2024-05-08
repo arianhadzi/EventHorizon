@@ -1,4 +1,4 @@
-import {users} from '../config/mongoCollections.js';
+import {bookmarks, comments, users} from '../config/mongoCollections.js';
 import {ObjectId} from 'mongodb'
 import * as validation from '../validation.js';
 import bcrypt from 'bcryptjs';
@@ -77,6 +77,7 @@ export const registerUser = async (
         email : user.email,
         username: user.username,
         bookmarks: user.bookmarks,
+        comments: user.comments,
       };
   
     }catch(e){
@@ -84,9 +85,33 @@ export const registerUser = async (
     }
 };
 
+export const getUserById = async (id) => {
+  let user = undefined;
+  try {
+    id = validation.checkId(id);
+
+    const userCollection = await users();
+    user = await userCollection.findOne({ _id: new ObjectId(id) });
+    if (!user) {
+      throw new Error('User not found.');
+    }
+    return {
+      userID: user._id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      username: user.username,
+      bookmarks: bookmarks,
+    }
+  } catch (e) {
+    throw new Error(e)
+  }
+};
+
 const exportedMethods = {
   registerUser,
-  loginUser
+  loginUser,
+  getUserById,
 };
 
 export default exportedMethods;
