@@ -234,7 +234,37 @@ router.route("/search").get(async (req, res) => {
     res.redirect('/login')
   }
   
-});
+})
+  .post(async(req,res) => {
+
+  try{
+
+let terms = req.body.terms
+let minDate = req.body.minDate
+let maxDate = req.body.maxDate
+let minRating = req.body.minRating
+let maxRating = req.body.maxRating
+let minComments = req.body.minComments
+let categories = req.body.category
+let minRatings = req.body.minRatings
+
+let searchList = await e.default.search(terms, maxDate, minDate, maxRating, minRating, minComments, minRatings, categories)
+
+if (!searchList) throw 'Could not search'
+
+console.log(searchList)
+
+res.redirect('search', {searchList : searchList})
+
+  }catch(e){
+
+  return res.status(400).render("create_event", {
+    title: "Create Event",
+    error: e,
+  })
+
+}}
+);
 
 router.route("/calendar").get(async (req, res) => {
   if(req.session.user){
