@@ -16,7 +16,6 @@ const getCollectionFn = (collection) => {
 };
 
 /* Now, you can list your collections here: */
-export const calendar = getCollectionFn('calendar');
 export const bookmarks = getCollectionFn('bookmarks');
 export const events = getCollectionFn('events');
 export const users = getCollectionFn('users');

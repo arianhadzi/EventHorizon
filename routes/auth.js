@@ -289,7 +289,7 @@ router.get("/home", (req, res) => {
     user: req.session.user});
 });
 */
-router.get("/event", (req, res) => {
+router.get("/event", async(req, res) => {
   if(req.session.user){
     res.render("event", {
       session : req.session,
