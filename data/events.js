@@ -146,7 +146,7 @@ return updatedEvent;
   }
 },
 
-search : async(orgTerms, titleTerms, descTerms, locTerms, maxDate = new Date(), minDate = new Date("1970-01-01"), maxRating = 5, minRating = 0, minComments = 0, minRatings = 0, categories) =>
+search : async(terms, maxDate = new Date(), minDate = new Date("1970-01-01"), maxRating = 5, minRating = 0, minComments = 0, minRatings = 0, categories) =>
 
 {
 try{
@@ -154,23 +154,15 @@ if (!orgTerms && !titleTerms && !descTerms && !locTerms && !maxDate && !minDate 
 
 const event = await events()
 
-if (orgTerms) {orgTerms = validation.checkString(orgTerms, "Terms in Organizer Name")} else {orgTerms = [""]}
-if (titleTerms) {titleTerms = validation.checkString(titleTerms, "Terms in Event Name")} else {titleTerms = [""]}
-if (descTerms) {descTerms = validation.checkString(descTerms, "Terms in Description")} else {descTerms = [""]}
-if (locTerms) {locTerms = validation.checkString(locTerms, "Terms in Event Location")} else {locTerms = [""]}
+if (!terms) //{orgTerms = validation.checkString(orgTerms, "Terms in Organizer Name")} else 
+{terms = [""]}
 
-orgTerms = orgTerms.split(" ")
-titleTerms = titleTerms.split(" ")
-descTerms = descTerms.split(" ")
-locTerms = locTerms.split(" ")
+terms = terms.split(" ")
 
-orgTerms = orgTerms.map(word => `(?=.*\\b${word}\\b)`).join("");
-titleTerms = titleTerms.map(word => `(?=.*\\b${word}\\b)`).join("");
-descTerms = descTerms.map(word => `(?=.*\\b${word}\\b)`).join("");
-locTerms = locTerms.map(word => `(?=.*\\b${word}\\b)`).join("");
+terms = terms.map(word => `(?=.*\\b${word}\\b)`).join("");
 
-let searchList = await event.find({eventOrganizerName : new RegExp(orgTerms, "i"), eventName : new RegExp(titleTerms, "i"), eventDescription : new RegExp(descTerms, "i"),
-eventLocation : new RegExp(locTerms, "i"), eventCategory : {$all : categories}, avgRating : {$gte: minRating, $lte: maxRating}, noOfComments : {$gte: minComments}, noOfRatings : {$gte : minRatings}, 
+let searchList = await event.find({eventDescription : new RegExp(descTerms, "i"),
+eventCategory : {$all : categories}, avgRating : {$gte: minRating, $lte: maxRating}, noOfComments : {$gte: minComments}, noOfRatings : {$gte : minRatings}, 
 eventDate : {$gte : minDate, $lte : maxDate}}).toArray
 
 if (!searchList) throw 'Could not get all events';
