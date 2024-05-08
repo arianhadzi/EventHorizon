@@ -209,7 +209,7 @@ res.redirect('/event')
 
   }catch(e){
 
-    return res.status(400).render("/create-event", {
+    return res.status(400).render("/create_event", {
       title: "Create Event",
       error: e,
     })
