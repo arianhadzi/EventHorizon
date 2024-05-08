@@ -1,8 +1,24 @@
+async function fetchEventsForMonth(year, month) {
+    try {
+        const response = await fetch(`/api/events`);
+        const events = await response.json();
+        return events.filter(event => {
+            const eventDate = new Date(event.eventDate);
+            return eventDate.getFullYear() === year && eventDate.getMonth() === month;
+        });
+    } catch (error) {
+        console.error('Failed to fetch events:', error);
+        return [];
+    }
+}
 
-function generateCalendar(year, month) {
+
+async function generateCalendar(year, month) {
     const now = new Date(year, month);
     const currentYear = now.getFullYear();
     const currentMonth = now.getMonth();
+    const events = await fetchEventsForMonth(currentYear, currentMonth); // Fetch events for the month
+
     const monthYearDisplay = `${now.toLocaleString('default', { month: 'long' })} ${currentYear}`;
 
     document.getElementById('month-year').innerText = monthYearDisplay
@@ -18,15 +34,16 @@ function generateCalendar(year, month) {
     for (let i = 0; i < 6; i++) {
         let weekRow = '<tr>';
         for (let j = 0; j < 7; j++, date++) {
-            if (date < 1) {
-                const prevMonthDay = new Date(currentYear, currentMonth, date).getDate();
-                weekRow += `<td class="not-current-month">${prevMonthDay}</td>`;
-            } else if (date > daysInMonth) {
-                const nextMonthDay = date - daysInMonth;
-                weekRow += `<td class="not-current-month">${nextMonthDay}</td>`;
-            } else {
-                weekRow += `<td>${date}</td>`;
-            }
+            const currentDate = new Date(currentYear, currentMonth, date);
+            let dateEvents = events.filter(e => new Date(e.eventDate).toDateString() === currentDate.toDateString());
+
+            let dayHTML = dateEvents.length > 0 
+                ? `<td><a href="/event/${dateEvents[0]._id}">${date}</a></td>` // Assume event ID is accessible and you have a route to handle it
+                : `<td>${date}</td>`;
+
+            weekRow += date < 1 || date > daysInMonth
+                ? `<td class="not-current-month">${date < 1 ? new Date(currentYear, currentMonth, date).getDate() : date - daysInMonth}</td>`
+                : dayHTML;
         }
         weekRow += '</tr>';
         calendarHTML += weekRow;
