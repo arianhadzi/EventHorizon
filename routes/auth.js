@@ -264,7 +264,10 @@ router.route("/bookmarks").get(async (req, res) => {
 
 });
 
-router.route("/create-comment").post(async (req, res) => {
+router.route("/create-comment").get(async (req, res) => {
+  return res.redirect('event');
+})
+.post(async (req, res) => {
   if(req.body.comment){
     res.render("event", {
       session : req.session,

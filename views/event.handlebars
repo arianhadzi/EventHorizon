@@ -6,10 +6,11 @@
     <p  id="eventDescription">{eventDescription}</p>
 
     <div id="comments">
+        <h3>Comments:</h3>
         <div id="comment"></div>
     </div>
 
-     <form id="signup-form" action="/register" method="post">
+     <form id="comment-form" action="/create-comment" method="post">
         <label for="confirmPassword">Add comment:</label>
             <input type="text" id="newComment" name="newComment" placeholder="Start typing...">
             <button
