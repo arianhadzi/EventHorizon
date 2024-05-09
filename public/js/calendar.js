@@ -39,7 +39,7 @@ async function generateCalendar(year, month) {
     for (let i = 0; i < 6; i++) {
         let weekRow = '<tr>';
         for (let j = 0; j < 7; j++, date++) {
-            const currentDate = new Date(currentYear, currentMonth, date);
+            const currentDate = new Date(currentYear, currentMonth, date-1);
             let dateEvents = events.filter(e => new Date(e.eventDate).toDateString() === currentDate.toDateString());
 
             let dayHTML = dateEvents.length > 0 
