@@ -47,6 +47,11 @@ getAll : async () => {
     let eventList = await event.find({}).toArray();
     
     if (!eventList) throw 'Could not get all events';
+
+    for (let i = 0; i<eventList.length; i++)
+      {
+        eventList[i].id = eventList[i]._id.toString()
+      }
     
     /*
     eventList = eventList.map((element) => 
@@ -146,24 +151,32 @@ return updatedEvent;
   }
 },
 
-search : async(terms, maxDate = new Date(), minDate = new Date("1970-01-01"), maxRating = 5, minRating = 0, minComments = 0, minRatings = 0, categories) =>
+search : async(terms) =>
 
 {
 try{
-if (!terms && !maxDate && !minDate && !categories) throw 'Please provide at least one field'
+if (!terms) throw 'Text cannot be blank'
 
 const event = await events()
 
 if (!terms) //{orgTerms = validation.checkString(orgTerms, "Terms in Organizer Name")} else 
 {terms = [""]}
+else{
 
 terms = terms.split(" ")
 
-terms = terms.map(word => `(?=.*\\b${word}\\b)`).join("");
+terms = terms.map(word => `(?=.*\\b${word}\\b)`).join("");}
 
-let searchList = await event.find({eventDescription : new RegExp(terms, "i"),
-eventCategory : {$all : categories}, avgRating : {$gte: minRating, $lte: maxRating}, noOfComments : {$gte: minComments}, noOfRatings : {$gte : minRatings}, 
-eventDate : {$gte : minDate, $lte : maxDate}}).toArray
+let searchList = await event.find({eventDescription : new RegExp(terms, "i")
+//, eventDate : {$gte : minDate, $lte : maxDate}
+}).toArray()
+
+
+
+for (let i = 0; i<searchList.length; i++)
+  {
+    searchList[i].id = searchList[i]._id.toString()
+  }
 
 if (!searchList) throw 'Could not get all events';
     
