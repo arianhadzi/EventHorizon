@@ -3,53 +3,14 @@
 
         <input type="text" id="terms" name="terms" placeholder="Search...">
 
-        <label for="minDate">Earliest Date:</label>
-        <input type="date" id="minDate" name="minDate">
-        
-        <label for="maxDate">Latest Date:</label>
-        <input type="date" id="maxDate" name="maxDate">
-
-        <label for="minRating">Lowest Rating:</label>
-        <input type="number" id="minRating" name="minRating">
-
-        <label for="maxRating">Highest Rating:</label>
-        <input type="number" id="maxRating" name="maxRating">
-
-        <label for="minComments">Minimum Number of Comments:</label>
-        <input type="number" id="minComments" name="minComments">
-
-        <label for="minRatings">Minimum Number of Ratings:</label>
-        <input type="number" id="minRatings" name="minRatings">
-        
-
-        <label for="category">Select Category:</label>
-        <div id="category">
-            <input type="checkbox" id="category-sports" name="category[]" value="sports">
-            <label for="category-sports">Sports</label><br>
-            
-            <input type="checkbox" id="category-art" name="category[]" value="art">
-            <label for="category-art">Art</label><br>
-
-            <input type="checkbox" id="category-theater" name="category[]" value="theater">
-            <label for="category-theater">Theater</label><br>
-
-            <input type="checkbox" id="category-music" name="category[]" value="music">
-            <label for="category-music">Music</label><br>
-
-            <input type="checkbox" id="category-conventions" name="category[]" value="conventions">
-            <label for="category-convention">Conventions</label><br>
-            
-            <input type="checkbox" id="category-technology" name="category[]" value="technology">
-            <label for="category-technology">Technology</label><br>
-        </div>
-
         <button id="submitButton" type="submit" name="submitButton">Submit</button>
 
     <ol>
 
     {{#each searchList}}
 
-    
+    <a href="/event/{{id}}">{{eventName}}</a>
+    <p>{{eventDate}}</p>
     <p>{{eventDescription}} </p>
 
     {{/each}}
