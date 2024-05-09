@@ -7,27 +7,50 @@ import { ObjectId } from "mongodb";
 import xss from "xss";
 
 
-router.get("/", (req, res) => {
+router.route("/")
+.get(async (req, res) => {
   if(!req.session.user){
     return res.redirect('/login')
   } else{
+
+    let allEvents = await e.default.getAll()
+
+    if (!allEvents) throw 'failed to get all events'
+
+    console.log(allEvents)
+
     return res.render("home", {
       session : req.session,
       loggedIn: req.session.loggedIn,
-      user: req.session.user});
+      user: req.session.user,
+    allEvents: allEvents});
   }
 });
 
-router.get("/home", (req, res) => {
+router
+.route("/home")
+.get(async (req, res) => {
   if(!req.session.user){
     return res.redirect('/login')
   } else{
+
+
+    let allEvents = await e.default.getAll()
+
+    if (!allEvents) throw 'failed to get all events'
+
+    console.log(allEvents)
+
     return res.render("home", {
       session : req.session,
       loggedIn: req.session.loggedIn,
-      user: req.session.user});
+      user: req.session.user,
+      allEvents : allEvents
+    });
   }
-});
+})
+
+;
 
 router
   .route("/register")
@@ -193,7 +216,7 @@ router.route("/create-event").get(async (req, res) => {
     let eventOrganizerName = req.session.user.firstName + " " + req.session.user.lastName
     let eventName = req.body.eventName
     let eventDate = req.body.eventDate
-    let eventDescription = req.body.eventDescription
+    let eventDescription = eventOrganizerName + " has created event titled " + eventName + " which will be at the location: " + req.body.eventLocation + ". Event Description : " + req.body.eventDescription
     let eventLocation = req.body.eventLocation
     let eventCategory = req.body.category
 
@@ -240,21 +263,16 @@ router.route("/search").get(async (req, res) => {
   try{
 
 let terms = req.body.terms
-let minDate = req.body.minDate
-let maxDate = req.body.maxDate
-let minRating = req.body.minRating
-let maxRating = req.body.maxRating
-let minComments = req.body.minComments
-let categories = req.body.category
-let minRatings = req.body.minRatings
 
-let searchList = await e.default.search(terms, maxDate, minDate, maxRating, minRating, minComments, minRatings, categories)
+console.log(terms)
+
+let searchList = await e.default.search(terms)
 
 if (!searchList) throw 'Could not search'
 
 console.log(searchList)
 
-res.redirect('search', {searchList : searchList})
+res.render('search', {searchList : searchList, id: searchList.id, loggedIn: req.session.loggedIn})
 
   }catch(e){
 
